@@ -10,6 +10,10 @@ Project structure:
    README.md
 
 Classes/Models
+   - User
+      . email
+      . username
+      . password
    - Quiz
       . title
       . difficultyLevel
@@ -20,8 +24,16 @@ Classes/Models
       . description
       . answerChoices
       . correctAnswer
+   - AnswerChoice
+      . letter
+      . description
+   - ChosenAnswer
+      . letter
+      . description
 
 Model Relationships
+   - User
+      has many ChosenAnswers
    - Quiz
       has many Questions
       belongs to Category
@@ -29,6 +41,13 @@ Model Relationships
       has one to many Quizzes
    - Question
       belongs to Quiz
+      has many AnswerChoices
+      has many ChosenAnswers
+   - AnswerChoice
+      belongs to Question
+   - ChosenAnswer
+      belongs to User
+      belongs to Question
 
 
 1. Start building out Rails API backend (Follow Rails MVC and RESTful conventions)
