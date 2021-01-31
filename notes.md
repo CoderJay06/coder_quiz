@@ -49,6 +49,10 @@ Model Relationships
       belongs to User
       belongs to Question
 
+# Backend
 
-1. Start building out Rails API backend (Follow Rails MVC and RESTful conventions)
-2. 
+   1. Start building out Rails API backend (Follow Rails MVC and RESTful conventions)
+   2. Generate User using resource generator and run migration
+      - Build out User controller actions [new (render signup), create (signup new user)]
+      
+# Frontend
