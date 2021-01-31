@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
    def index 
       users = User.all 
 
-      render json: users 
+      render json: users, except: [:created_at, :updated_at]
    end 
 
    # # render signup
@@ -25,7 +25,7 @@ class Api::V1::UsersController < ApplicationController
    def show 
       user = User.find_by(id: params[:id])
 
-      render json: user 
+      render json: user, except: [:created_at, :updated_at]
    end 
 
    # delete user
