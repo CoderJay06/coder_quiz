@@ -3,10 +3,35 @@ const USERS_URL = `${BASE_URL}/api/v1/users` // Set url global variable for user
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    debugger
+    const signupForm = document.querySelector("#signup-form")
+
+    signupForm.addEventListener("submit", signupUser)
 });
 
-// Make function for rendering the signup form
-const renderSignupForm = () => {
-    return document.querySelector('#signup-form')
+const signupUser = (event) => {
+    event.preventDefault()
+    const emailInput = document.querySelector(".email-input")
+    const usernameInput = document.querySelector(".username-input")
+    const passwordInput = document.querySelector(".password-input")
+    const newUserData = new User({
+        email: emailInput.value,
+        username: usernameInput.value,
+        password: passwordInput.value
+    });
+    debugger
+    // Make config object
+    let userConfigObj = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application-json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(newUserData)
+    };
+    // Send fetch request to users url
 }
+
+// Make function for rendering the signup form
+// const signupForm = () => {
+//     return document.querySelector('#signup-form')
+// }
