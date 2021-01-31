@@ -18,17 +18,21 @@ const signupUser = (event) => {
         username: usernameInput.value,
         password: passwordInput.value
     });
-    debugger
     // Make config object
     let userConfigObj = {
-        method: 'POST',
+        method: "POST",
         headers: {
-            'Content-Type': 'application-json',
-            'Accept': 'application/json'
+            "Content-Type": "application/json",
+            "Accept": "application/json"
         },
         body: JSON.stringify(newUserData)
     };
     // Send fetch request to users url
+    fetch(USERS_URL, userConfigObj)
+        .then(response => response.json())
+        .then(userData => {
+            debugger
+        })
 }
 
 // Make function for rendering the signup form
