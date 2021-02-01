@@ -12,9 +12,9 @@ class Api::V1::UsersController < ApplicationController
 
    # signup user
    def create
-      user = User.create(user_params)
+      user = User.new(user_params)
 
-      if user 
+      if user.save 
          render json: { message: 'Successfully signed up!'}
       else  
          render json: { message: 'Sorry, there was a problem..'}
