@@ -1,3 +1,5 @@
+/* Signup form styles */
+
 div#signup-form-container {
     display: block;
 }
@@ -43,4 +45,15 @@ input[type=password]:focus {
 
 .signup-btn:hover {
     opacity: 1;
+}
+
+
+/* Signup and login link styles */
+
+.signup-login-links {
+    text-align: center;
+}
+
+.signup-login-links a {
+    color: #7b5d97;
 }
