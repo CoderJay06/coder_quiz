@@ -13,11 +13,12 @@
     <br>
     <div>
         <p class="signup-login-links">
-            <a href="#">Signup</a> Or <a href="#">Login</a>
+            <a class="signup-link" href="#" onclick="renderSignupForm()">Signup</a> Or
+            <a class="login-link" href="#">Login</a>
         </p>
     </div>
     <div id="signup-form-container">
-        <form id="signup-form" method="POST">
+        <form id="signup-form" method="POST" hidden>
             <h3 class="signup-heading">Signup</h3>
             <label for="user_email">Email</label>
             <input class="email-input" name="user_email" type="text">

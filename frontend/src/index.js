@@ -1,12 +1,20 @@
 const BASE_URL = "http://localhost:3000" // Set global variable for home url
 const USERS_URL = `${BASE_URL}/api/v1/users` // Set url global variable for users
-
+const signupForm = document.querySelector("#signup-form")
+    // const signupButton = document.querySelector(".signup-btn")
 
 document.addEventListener("DOMContentLoaded", () => {
-    const signupForm = document.querySelector("#signup-form")
-
+    //  const signupForm = document.querySelector("#signup-form")
+    //  const signupLink = document.querySelector(".signup-link")
+    //  debugger
+    //  signupForm.hidden = true
+    //  signupLink.addEventListener("click", renderSignupForm(signupForm))
     signupForm.addEventListener("submit", signupUser)
 });
+
+const renderSignupForm = () => {
+    signupForm.hidden = false
+}
 
 const signupUser = (event) => {
     event.preventDefault()
@@ -30,9 +38,6 @@ const signupUser = (event) => {
     // Send fetch request to users url
     fetch(USERS_URL, userConfigObj)
         .then(response => response.json())
-        .then(userData => {
-
-        })
 }
 
 // Make function for rendering the signup form
