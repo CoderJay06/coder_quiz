@@ -31,7 +31,7 @@ const signupUser = (event) => {
     fetch(USERS_URL, userConfigObj)
         .then(response => response.json())
         .then(userData => {
-            debugger
+
         })
 }
 

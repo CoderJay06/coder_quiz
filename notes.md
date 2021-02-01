@@ -55,5 +55,17 @@ Model Relationships
    2. Generate User using resource generator and run migration
       - Build out User controller actions [new (render signup), create (signup new user)]
       - Create User seed data
+      - Add controller actions to UserController
       
 # Frontend
+   1. Create user signup form and user class
+      - Make signup form functional (able to process user data)
+      - Style signup form
+   2. Create user login form
+      - Make login form functional (able to login user)
+      - Style login form
+
+
+
+
+
