@@ -21,22 +21,27 @@ const renderSignupForm = () => {
 }
 
 const renderLoginForm = () => {
-    signupForm.hidden = true 
+    signupForm.hidden = true
     loginForm.hidden = false
 }
 
 const signupUser = (event) => {
     event.preventDefault()
-    const emailInput = document.querySelector(".email-input")
-    const usernameInput = document.querySelector(".username-input")
-    const passwordInput = document.querySelector(".password-input")
-    const newUserData = new User({
-        email: emailInput.value,
-        username: usernameInput.value,
-        password: passwordInput.value
-    });
+    const emailInput = document.querySelector(".signup-email-input")
+    const usernameInput = document.querySelector(".signup-username-input")
+    const passwordInput = document.querySelector(".signup-password-input")
+    const passwordConfirmation = document.querySelector(".signup-password-confirmation")
+
+    const newUserData = {
+        user: {
+            email: emailInput.value,
+            username: usernameInput.value,
+            password: passwordInput.value,
+            password_confirmation: passwordConfirmation.value
+        }
+    }; // {user: {username: '', password: ''}}
     // Make config object
-    let userConfigObj = {
+    const userConfigObj = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -44,9 +49,13 @@ const signupUser = (event) => {
         },
         body: JSON.stringify(newUserData)
     };
+    //  debugger
     // Send fetch request to users url
     fetch(USERS_URL, userConfigObj)
         .then(response => response.json())
+        //   .then(obj => {
+        //       debugger
+        //   })
 }
 
 const loginUser = (event) => {
@@ -57,7 +66,7 @@ const loginUser = (event) => {
         username: usernameInput.value,
         password: passwordInput.value
     };
-    //  debugger
+    debugger
     // Make config object
     let userConfigObj = {
         method: "POST",
@@ -67,12 +76,10 @@ const loginUser = (event) => {
         },
         body: JSON.stringify(userData)
     };
-    // Send fetch request to users url
+    debugger
+    // Send fetch request to login url
     fetch(LOGIN_URL, userConfigObj)
         .then(response => response.json())
-        .then(obj => {
-            debugger
-        })
 }
 
 // Make function for rendering the signup form

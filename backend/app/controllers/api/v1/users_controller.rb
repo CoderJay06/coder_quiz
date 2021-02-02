@@ -15,6 +15,7 @@ class Api::V1::UsersController < ApplicationController
       user = User.new(user_params)
 
       if user.save 
+         # byebug
          render json: { message: 'Successfully signed up!'}
       else  
          render json: { message: 'Sorry, there was a problem..'}
@@ -38,7 +39,7 @@ class Api::V1::UsersController < ApplicationController
 
    private 
    def user_params
-      params.require(:user).permit(:email, :username, :password)
+      params.require(:user).permit(:email, :username, :password, :password_confirmation)
    end 
 end
 

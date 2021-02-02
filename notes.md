@@ -58,7 +58,7 @@ Model Relationships
       - Add controller actions to UserController
    3. Generate Sessions controller for user login (actions: create, destroy)
       - Build login authentiction
-      
+      - Build logout logic
 # Frontend
    1. Create user signup form and user class
       - Make signup form functional (able to process user data)
@@ -68,6 +68,7 @@ Model Relationships
       - Style login form
 
 
-
+# TODOS
+   - Switch to token based authentication
 
 
