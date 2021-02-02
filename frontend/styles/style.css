@@ -4,18 +4,16 @@ div#signup-form-container {
     display: block;
 }
 
-.signup-heading {
+.form-heading {
     /* text-align: center; */
     font-family: 'Courier New', Courier, monospace;
 }
 
-form#signup-form {
+form {
     text-align: center;
 }
 
-.email-input,
-.username-input,
-.password-input {
+input {
     width: 50%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -30,7 +28,7 @@ input[type=password]:focus {
     outline: none;
 }
 
-.signup-btn {
+input[type=submit] {
     background-color: #7b5d97;
     color: white;
     padding: 14px 20px;
@@ -43,7 +41,7 @@ input[type=password]:focus {
     font-family: 'Courier New', Courier, monospace;
 }
 
-.signup-btn:hover {
+input[type=submit]:hover {
     opacity: 1;
 }
 

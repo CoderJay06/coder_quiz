@@ -16,7 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const renderSignupForm = () => {
+    loginForm.hidden = true
     signupForm.hidden = false
+}
+
+const renderLoginForm = () => {
+    signupForm.hidden = true 
+    loginForm.hidden = false
 }
 
 const signupUser = (event) => {
