@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", loginUser)
 });
 
+
 const renderSignupForm = () => {
     loginForm.hidden = true
     signupForm.hidden = false
@@ -23,6 +24,10 @@ const renderSignupForm = () => {
 const renderLoginForm = () => {
     signupForm.hidden = true
     loginForm.hidden = false
+}
+
+const handleLogout = () => {
+    //  debugger
 }
 
 const signupUser = (event) => {
@@ -53,9 +58,14 @@ const signupUser = (event) => {
     // Send fetch request to users url
     fetch(USERS_URL, userConfigObj)
         .then(response => response.json())
-        //   .then(obj => {
-        //       debugger
-        //   })
+        .then(obj => {
+            debugger
+            let user = new User({
+                id: obj.id,
+                email: obj.email,
+                username: obj.username
+            });
+        })
 }
 
 const loginUser = (event) => {
@@ -66,7 +76,7 @@ const loginUser = (event) => {
         username: usernameInput.value,
         password: passwordInput.value
     };
-    debugger
+    //  debugger
     // Make config object
     let userConfigObj = {
         method: "POST",
@@ -76,7 +86,7 @@ const loginUser = (event) => {
         },
         body: JSON.stringify(userData)
     };
-    debugger
+    //  debugger
     // Send fetch request to login url
     fetch(LOGIN_URL, userConfigObj)
         .then(response => response.json())

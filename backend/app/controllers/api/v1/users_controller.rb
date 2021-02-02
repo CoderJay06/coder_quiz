@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
 
       if user.save 
          # byebug
-         render json: { message: 'Successfully signed up!'}
+         render json: user 
       else  
          render json: { message: 'Sorry, there was a problem..'}
       end 
@@ -42,9 +42,3 @@ class Api::V1::UsersController < ApplicationController
       params.require(:user).permit(:email, :username, :password, :password_confirmation)
    end 
 end
-
-
-
-
-
-
