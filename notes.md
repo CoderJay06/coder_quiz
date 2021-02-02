@@ -56,8 +56,8 @@ Model Relationships
       - Build out User controller actions [new (render signup), create (signup new user)]
       - Create User seed data
       - Add controller actions to UserController
-   3. Generate Sessions controller for user login
-         actions: create, destroy
+   3. Generate Sessions controller for user login (actions: create, destroy)
+      - Build login authentiction
       
 # Frontend
    1. Create user signup form and user class
