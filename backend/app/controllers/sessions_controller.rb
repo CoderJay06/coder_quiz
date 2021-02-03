@@ -4,12 +4,13 @@ class SessionsController < ApplicationController
    # Login user
   def create
     @user = User.find_by(username: params[:username])
-    byebug
+   
     render json: @user
   end
 
   # Logout user
   def destroy
+    # byebug
   end
 
   private

@@ -1,16 +1,11 @@
 const BASE_URL = "http://localhost:3000" // Set global variable for home url
 const USERS_URL = `${BASE_URL}/api/v1/users` // Set url global variable for users
-const LOGIN_URL = `${BASE_URL}/sessions` // Set url global variable for login
+const SESSIONS_URL = `${BASE_URL}/sessions` // Set url global variable for login
 const signupForm = document.querySelector("#signup-form")
 const loginForm = document.querySelector("#login-form")
     // const signupButton = document.querySelector(".signup-btn")
 
 document.addEventListener("DOMContentLoaded", () => {
-    //  const signupForm = document.querySelector("#signup-form")
-    //  const signupLink = document.querySelector(".signup-link")
-    //  debugger
-    //  signupForm.hidden = true
-    //  signupLink.addEventListener("click", renderSignupForm(signupForm))
     signupForm.addEventListener("submit", signupUser)
     loginForm.addEventListener("submit", loginUser)
 });
@@ -27,7 +22,18 @@ const renderLoginForm = () => {
 }
 
 const handleLogout = () => {
-    //  debugger
+    logout()
+}
+
+const logout = () => {
+    // Logout the current user
+    fetch(SESSIONS_URL, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    }).then(response => response.json())
 }
 
 const signupUser = (event) => {
@@ -59,12 +65,12 @@ const signupUser = (event) => {
     fetch(USERS_URL, userConfigObj)
         .then(response => response.json())
         .then(obj => {
-            debugger
+            // debugger
             let user = new User({
                 id: obj.id,
                 email: obj.email,
                 username: obj.username
-            });
+            })
         })
 }
 
@@ -88,7 +94,7 @@ const loginUser = (event) => {
     };
     //  debugger
     // Send fetch request to login url
-    fetch(LOGIN_URL, userConfigObj)
+    fetch(SESSIONS_URL, userConfigObj)
         .then(response => response.json())
 }
 
