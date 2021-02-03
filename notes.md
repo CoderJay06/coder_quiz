@@ -52,13 +52,20 @@ Model Relationships
 # Backend
 
    1. Start building out Rails API backend (Follow Rails MVC and RESTful conventions)
-   2. Generate User using resource generator and run migration
-      - Build out User controller actions [new (render signup), create (signup new user)]
-      - Create User seed data
-      - Add controller actions to UserController
-   3. Generate Sessions controller for user login (actions: create, destroy)
-      - Build login authentiction
-      - Build logout logic
+   ## User
+      1. Generate User using resource generator and run migration
+         - Build out User controller actions [new (render signup), create (signup new user)]
+         - Create User seed data
+         - Add controller actions to UserController
+      2. Generate Sessions controller for user login (actions: create, destroy)
+         - Build login authentiction
+         - Build logout logic
+   ## Category
+      1. Generate Category using resource generator and run migration
+   
+   ## Quiz
+      1. Generate Quiz using resource generator, run migration
+      
 # Frontend
    1. Create user signup form and user class
       - Make signup form functional (able to process user data)

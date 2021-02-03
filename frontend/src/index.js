@@ -33,7 +33,7 @@ const logout = () => {
             "Content-Type": "application/json",
             "Accept": "application/json"
         }
-    }).then(response => response.json())
+    })
 }
 
 const signupUser = (event) => {
