@@ -71,9 +71,9 @@ const fetchCategories = () => {
         .then(categoriesData => {
             if (categorySelector.childElementCount < categoriesData.length) {
                 categoriesData.forEach(category => {
-                    //  debugger
-
+                    //   debugger
                     let option = new Category(category)
+                    debugger
                     categorySelector.innerHTML += option.renderCategory()
                 })
             }

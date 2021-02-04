@@ -3,7 +3,10 @@ class Api::V1::CategoriesController < ApplicationController
    def index 
       categories = Category.all 
 
-      render json: categories, only: [:id, :name]
+      # render json: categories, only: [:id, :name]
+      render json: categories.to_json(:include => {:quizzes => {
+         :only => [:id, :title, :difficultyLevel, :questionAmount]
+      }})
    end 
 
    # Show category
@@ -11,7 +14,7 @@ class Api::V1::CategoriesController < ApplicationController
       category = Category.find_by(id: params[:id])
       # byebug
       render json: category.to_json(:include => {:quizzes => {
-         :only => [:title, :difficultyLevel, :questionAmount]
+         :only => [:id, :title, :difficultyLevel, :questionAmount]
       }})
    end 
 end
