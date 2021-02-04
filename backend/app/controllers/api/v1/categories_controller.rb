@@ -9,7 +9,9 @@ class Api::V1::CategoriesController < ApplicationController
    # Show category
    def show 
       category = Category.find_by(id: params[:id])
-
-      render json: category, only: [:name]
+      # byebug
+      render json: category.to_json(:include => {:quizzes => {
+         :only => [:title, :difficultyLevel, :questionAmount]
+      }})
    end 
 end
