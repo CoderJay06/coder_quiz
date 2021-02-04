@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
    namespace :api do 
       namespace :v1 do 
-         resources :users 
-         resources :categories
-         resources :quizzes
+         resources :users, only: [:index, :create, :show, :destroy]
+         resources :categories, only: [:index, :show]
+         resources :quizzes, only: [:index, :show]
       end
    end
 

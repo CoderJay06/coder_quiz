@@ -62,18 +62,24 @@ Model Relationships
          - Build logout logic
    ## Category
       1. Generate Category using resource generator and run migration
+         - Build out Category controller actions [index, show]
    
    ## Quiz
       1. Generate Quiz using resource generator, run migration
       
 # Frontend
-   1. Create user signup form and user class
-      - Make signup form functional (able to process user data)
-      - Style signup form
-   2. Create user login form
-      - Make login form functional (able to login user)
-      - Style login form
-
+   ## User
+      1. Create user signup form and user class
+         - Make signup form functional (able to process user data)
+         - Style signup form
+      2. Create user login form
+         - Make login form functional (able to login user)
+         - Style login form
+   ## Category
+      1. Create category class
+         Methods:
+         - render categories
+         - render category
 
 # TODOS
    - Switch to token based authentication
