@@ -8,7 +8,7 @@ class Category {
     // Method to render category to the dom
     renderCategory() {
         return `
-         <li class="category" data-id="${this.id}">${this.name}</li>
+         <option value="${this.name}" data-id="${this.id}">${this.name}</option>
         `
     }
 }
