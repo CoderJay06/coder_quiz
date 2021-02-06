@@ -30,35 +30,33 @@ const renderLoginForm = () => {
 // }
 
 const renderCategorySelector = () => {
-    //  createCategorySelector()
-    handleCategorySelector()
+    createCategorySelector()
+    fetchCategories()
 }
 
-// const createCategorySelector = () => {
-//     const categoryContainer = document.querySelector("#categories-container")
-//     const categorySelector = document.createElement("select")
-//     categorySelector.name = "categories"
-//     categorySelector.id = "categories"
-//     categoryContainer.appendChild(categorySelector)
-// }
-
-const handleCategorySelector = () => {
+const createCategorySelector = () => {
     const categoryContainer = document.querySelector("#categories-container")
     const categorySelector = document.createElement("select")
     categorySelector.name = "categories"
     categorySelector.id = "categories"
+    categorySelector.innerHTML += `<option value="">category</option>`
     categoryContainer.appendChild(categorySelector)
-    categorySelector.addEventListener("click", handleCategoryClick)
 }
 
-const handleCategoryClick = (event) => {
-    //  debugger
-    event.preventDefault()
-    fetchCategories()
-}
+// const handleCategorySelector = () => {
+//     //  const categorySelector = document.getElementById("categories")
+//     //  categorySelector.addEventListener("click", handleCategoriesClick)
+//     fetchCategories()
+// }
+
+// const handleCategoriesClick = (event) => {
+//     //  debugger
+//     event.preventDefault()
+//         //  fetchCategories(event)
+// }
 
 const fetchCategories = () => {
-    const categorySelector = document.querySelector("#categories")
+    const categorySelector = document.getElementById("categories")
         // Fetch and load all categories
     fetch(CATEGORIES_URL, {
             method: "GET",
@@ -71,13 +69,29 @@ const fetchCategories = () => {
         .then(categoriesData => {
             if (categorySelector.childElementCount < categoriesData.length) {
                 categoriesData.forEach(category => {
-                    //  debugger
-
+                    //   debugger
                     let option = new Category(category)
                     categorySelector.innerHTML += option.renderCategory()
+                        //   debugger
+                        //   option.addEventListener("click", handleCategoriesClick)
                 })
             }
         })
+    attatchListenerToCategories(categorySelector)
+}
+
+const attatchListenerToCategories = (categories) => {
+    categories.addEventListener("change", handleCategoryClick)
+}
+
+const handleCategoryClick = (event) => {
+    const selectedCategory = event.target.options[event.target.selectedIndex]
+    const categoryId = Number(selectedCategory.dataset.id)
+    const category = Category.all.find(categoryObj => categoryObj.id === categoryId)
+    const quizContainer = document.getElementById("quizzes-container")
+    if (category) {
+        quizContainer.innerHTML = category.getQuizzes()
+    }
 }
 
 const handleLogout = () => {
