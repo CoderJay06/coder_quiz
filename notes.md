@@ -75,6 +75,7 @@ Model Relationships
    
    ## Quiz
       1. Generate Quiz using resource generator, run migration
+         - Build out Quiz controller actions [index, show]
       
 # Frontend
    ## User
