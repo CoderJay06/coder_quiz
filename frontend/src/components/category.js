@@ -4,13 +4,19 @@ class Category {
         this.id = categoryJSON.id
         this.name = categoryJSON.name
         this.quizzes = categoryJSON.quizzes
+        Category.all.push(this) // Store all category objs in array
     }
 
     // Method to render category to the dom
     renderCategory() {
         return `
-         <option value="${this.name}" data-id="${this.id}">${this.name}</option>
-        `
+           <option value="${this.name}" data-id="${this.id}">${this.name}</option>
+          `
+            //   let categoryOption = document.createElement("option")
+            //   categoryOption.value = `${this.value}`
+            //   categoryOption.dataset.id = `${this.id}`
+            //   categoryOption.innerHTML = `${this.name}`
+            //   return categoryOption
     }
 
     // Get quizzes for current category
@@ -27,3 +33,4 @@ class Category {
         return quizzes.join()
     }
 }
+Category.all = []
