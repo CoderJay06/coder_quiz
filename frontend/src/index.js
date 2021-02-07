@@ -2,6 +2,7 @@ const BASE_URL = "http://localhost:3000" // Set global variable for home url
 const USERS_URL = `${BASE_URL}/api/v1/users` // Set url global variable for users
 const SESSIONS_URL = `${BASE_URL}/sessions` // Set url global variable for login
 const CATEGORIES_URL = `${BASE_URL}/api/v1/categories` // Set url global variable for fetching categorues
+const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
 const signupForm = document.querySelector("#signup-form")
 const loginForm = document.querySelector("#login-form")
     // const signupButton = document.querySelector(".signup-btn")
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     signupForm.addEventListener("submit", signupUser)
     loginForm.addEventListener("submit", loginUser)
     renderCategorySelector()
+        //  renderQuiz()
 });
 
 
@@ -33,6 +35,11 @@ const renderCategorySelector = () => {
     createCategorySelector()
     fetchCategories()
 }
+
+// const renderQuiz = () => {
+//     fetchQuiz()
+//     showQuiz()
+// }
 
 const createCategorySelector = () => {
     const categoryContainer = document.querySelector("#categories-container")
@@ -91,7 +98,47 @@ const handleCategoryClick = (event) => {
     const quizContainer = document.getElementById("quizzes-container")
     if (category) {
         quizContainer.innerHTML = category.getQuizzes()
+        fetchQuiz()
     }
+}
+
+const fetchQuiz = () => {
+    //  const quizButton = document.querySelector(".quiz-btn")
+    fetch(QUIZZES_URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(quizData => {
+            quizData.forEach(quiz => {
+                new Quiz(quiz)
+            })
+        })
+    showQuiz()
+}
+
+const showQuiz = () => {
+    const quizButton = document.querySelector(".quiz-btn")
+    quizButton.addEventListener("click", handleQuizBtnClick)
+}
+
+const handleQuizBtnClick = (event) => {
+    event.preventDefault()
+    const quizContainer = document.getElementById("show-quiz")
+    const quizId = Number(event.target.dataset.id)
+    console.log(quizContainer, quizId)
+        // iterate over quizzes and find by id
+    const currentQuiz = Quiz.all.reduce((result, currentQuiz) => {
+        if (currentQuiz.findById(quizId)) {
+            result = currentQuiz
+        }
+        return result
+    })
+    console.log(currentQuiz)
+    quizContainer.innerHTML += currentQuiz.showQuiz()
 }
 
 const handleLogout = () => {
