@@ -1,4 +1,5 @@
 class QuizSerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes :title, :difficultyLevel, :questionAmount, :category_id
+  belongs_to :category 
 end
