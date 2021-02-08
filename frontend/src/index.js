@@ -121,24 +121,25 @@ const fetchQuiz = () => {
 }
 
 const showQuiz = () => {
-    const quizButton = document.querySelector(".quiz-btn")
+    const quizButton = document.getElementById("quizzes-container")
     quizButton.addEventListener("click", handleQuizBtnClick)
 }
 
 const handleQuizBtnClick = (event) => {
     event.preventDefault()
-    const quizContainer = document.getElementById("show-quiz")
+    const quizBtnTag = document.querySelector(`.quiz-${event.target.dataset.id}-btn`)
     const quizId = Number(event.target.dataset.id)
-    console.log(quizContainer, quizId)
-        // iterate over quizzes and find by id
-    const currentQuiz = Quiz.all.reduce((result, currentQuiz) => {
-        if (currentQuiz.findById(quizId)) {
-            result = currentQuiz
-        }
-        return result
-    })
-    console.log(currentQuiz)
-    quizContainer.innerHTML += currentQuiz.showQuiz()
+    if (quizId === Number(quizBtnTag.dataset.id)) {
+        const quizContainer = document.getElementById("show-quiz")
+            // iterate over quizzes and find by id
+        const currentQuiz = Quiz.all.reduce((result, currentQuiz) => {
+            if (currentQuiz.findById(quizId)) {
+                result = currentQuiz
+            }
+            return result
+        })
+        quizContainer.innerHTML += currentQuiz.showQuiz()
+    }
 }
 
 const handleLogout = () => {

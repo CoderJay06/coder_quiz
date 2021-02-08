@@ -23,13 +23,13 @@ class Category {
     getQuizzes() {
         const quizzes = this.quizzes.map(quiz => {
             return `
-               <ul id="quiz-${quiz.id}-list">
-                  <li>Title: ${quiz.title}</li>
-                  <li>Difficulty: ${quiz.difficultyLevel}</li>
-                  <li>Question Amount: ${quiz.questionAmount}</li>
-               </ul>
-               <button class="quiz-btn" data-id="${quiz.id}">Take Quiz</button>
-            `
+                  <ul id="quiz-${quiz.id}-list" data-id="${quiz.id}">
+                     <li>Title: ${quiz.title}</li>
+                     <li>Difficulty: ${quiz.difficultyLevel}</li>
+                     <li>Question Amount: ${quiz.questionAmount}</li>
+                  </ul>
+                  <button class="quiz-${quiz.id}-btn" data-id="${quiz.id}">Take Quiz</button>
+                  `
         })
         return quizzes.join()
     }
