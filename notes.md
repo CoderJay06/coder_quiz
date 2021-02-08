@@ -106,6 +106,7 @@ Model Relationships
          - render category
 
 # TODOS
+   - Add fast JSON API gem and searializers
    - Switch to token based authentication
 
 # REFACTORING
