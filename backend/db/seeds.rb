@@ -6,6 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Destroy all to prevent duplicates
+User.destroy_all
+Category.destroy_all 
+Quiz.destroy_all
+
 # Users seed data
 User.create(email: 'jay@flatiron.com', username: 'jay06', password: 'j123')
 User.create(email: 'bob@email.com', username: 'bob01', password: 'bob123')
