@@ -50,13 +50,27 @@ Model Relationships
       belongs to Question
 
 # REQUIREMENTS
-   1. The application must be an HTML, CSS, and JavaScript frontend with a Rails API backend. All interactions between the client and the server must be handled asynchronously (AJAX) and use JSON as the communication format.
+   x 1. The application must be an HTML, CSS, and JavaScript frontend with a Rails API backend. All interactions between the client and the server must be handled asynchronously (AJAX) and use JSON as the communication format.
 
-   2. The JavaScript application must use Object Oriented JavaScript (classes) to encapsulate related data and behavior.
+      - Frontend uses HTML, CSS, JS. Rails API in backend. All interactions handled asynchronously using fetch, callbacks and promises
 
-   3. The domain model served by the Rails backend must include a resource with at least one has-many relationship. For example, if you were building an Instagram clone, you might display a list of photos with associated comments.
+   x 2. The JavaScript application must use Object Oriented JavaScript (classes) to encapsulate related data and behavior.
+   
+      - Category, Quiz, and User Javascript classes are used to encaspulate related data and behavior
 
-   4. The backend and frontend must collaborate to demonstrate Client-Server Communication. Your application should have at least 3 AJAX calls, covering at least 2 of Create, Read, Update, and Delete (CRUD). Your client-side JavaScript code must use fetch with the appropriate HTTP verb, and your Rails API should use RESTful conventions.
+   x 3. The domain model served by the Rails backend must include a resource with at least one has-many relationship. For example, if you were building an Instagram clone, you might display a list of photos with associated comments.
+
+      - The Category model includes a has many Quizzes relationship with Quizzes referencing Category
+
+   x 4. The backend and frontend must collaborate to demonstrate Client-Server Communication. Your application should have at least 3 AJAX calls, covering at least 2 of Create, Read, Update, and Delete (CRUD). Your client-side JavaScript code must use fetch with the appropriate HTTP verb, and your Rails API should use RESTful conventions.
+
+      - Backend and frontend collaborate demonstrating client-server communication int the following ways:
+         . User signs up on a frontend form, submiting user input sends request to backend, persisting user data into the users database (Create)
+         . User can login, sending credentials to backend sessions controller to authenticate and assign session to user id.
+         . User can logout, sends Patch request to backend deleting user session (Delete)
+      - CRUD actions covered, user can signup (create) and user can logout (delete)
+      - Client-side JS uses fetch requests to handle client-server communication with appropriate HTTP verb for each fetch
+      - Rail api follows RESTful conventions
 
 # Backend
 
