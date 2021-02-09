@@ -74,6 +74,7 @@ const fetchCategories = () => {
         })
         .then(response => response.json())
         .then(categoriesData => {
+            // debugger
             if (categorySelector.childElementCount < categoriesData.length) {
                 categoriesData.forEach(category => {
                     //   debugger
@@ -159,6 +160,7 @@ const logout = () => {
 
 const signupUser = (event) => {
     event.preventDefault()
+        //  debugger
     const emailInput = document.querySelector(".signup-email-input")
     const usernameInput = document.querySelector(".signup-username-input")
     const passwordInput = document.querySelector(".signup-password-input")
@@ -185,12 +187,12 @@ const signupUser = (event) => {
     // Send fetch request to users url
     fetch(USERS_URL, userConfigObj)
         .then(response => response.json())
-        .then(obj => {
+        .then(userObj => {
             // debugger
-            let user = new User({
-                id: obj.id,
-                email: obj.email,
-                username: obj.username
+            new User({
+                id: Number(userObj.data.id),
+                email: userObj.data.attributes.email,
+                username: userObj.data.attributes.username
             })
         })
 }

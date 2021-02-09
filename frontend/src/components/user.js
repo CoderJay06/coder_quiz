@@ -4,7 +4,7 @@ class User {
         this.id = userJSON.id
         this.email = userJSON.email
         this.username = userJSON.username
-            //   this.password = userJSON.password
-            //   this.password_confirmation = userJSON.password_confirmation
+        User.all.push(this)
     }
 }
+User.all = []
