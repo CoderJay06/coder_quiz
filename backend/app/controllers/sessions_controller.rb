@@ -1,22 +1,24 @@
 class SessionsController < ApplicationController
-  before_action :authenticate_user
+  before_action :find_user, :authenticate_user
 
    # Login user
   def create
-    @user = User.find_by(username: params[:username])
-   
-    render json: @user
+    session[:user_id] = @user.id
+
+    render json: @user, status: :accepted
   end
 
   # Logout user
   def destroy
-    # byebug
   end
 
   private
+
+  def find_user 
+     @user = User.find_by(username: params[:username])
+  end 
+
   def authenticate_user
-    if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
-    end 
+     @user && @user.authenticate(params[:password]) 
   end 
 end
