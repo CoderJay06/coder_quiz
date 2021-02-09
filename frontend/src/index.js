@@ -75,10 +75,11 @@ const fetchCategories = () => {
         .then(response => response.json())
         .then(categoriesData => {
             // debugger
-            if (categorySelector.childElementCount < categoriesData.length) {
-                categoriesData.forEach(category => {
+            if (categorySelector.childElementCount < categoriesData.data.length) {
+                categoriesData.data.forEach(category => {
                     //   debugger
-                    let option = new Category(category)
+                    let option = new Category(
+                        category, category.attributes, category.relationships)
                     categorySelector.innerHTML += option.renderCategory()
                         //   debugger
                         //   option.addEventListener("click", handleCategoriesClick)

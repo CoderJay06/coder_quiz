@@ -1,9 +1,10 @@
 // Category class ()
 class Category {
-    constructor(categoryJSON) {
-        this.id = categoryJSON.id
-        this.name = categoryJSON.name
-        this.quizzes = categoryJSON.quizzes
+    constructor(category, categoryAttributes, categoryRelationships) {
+        //   debugger
+        this.id = Number(category.id)
+        this.name = categoryAttributes.name
+        this.quizzes = categoryRelationships.quizzes.data
         Category.all.push(this) // Store all category objs in array
     }
 
