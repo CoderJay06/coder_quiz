@@ -74,12 +74,12 @@ const fetchCategories = () => {
         })
         .then(response => response.json())
         .then(categoriesData => {
-            // debugger
             if (categorySelector.childElementCount < categoriesData.data.length) {
                 categoriesData.data.forEach(category => {
                     //   debugger
                     let option = new Category(
-                        category, category.attributes, category.relationships)
+                        category, category.attributes, category.relationships,
+                        categoriesData.included)
                     categorySelector.innerHTML += option.renderCategory()
                         //   debugger
                         //   option.addEventListener("click", handleCategoriesClick)
@@ -98,6 +98,7 @@ const handleCategoryClick = (event) => {
     const categoryId = Number(selectedCategory.dataset.id)
     const category = Category.all.find(categoryObj => categoryObj.id === categoryId)
     const quizContainer = document.getElementById("quizzes-container")
+        //  debugger
     if (category) {
         quizContainer.innerHTML = category.getQuizzes()
         fetchQuiz()
@@ -115,8 +116,8 @@ const fetchQuiz = () => {
         })
         .then(response => response.json())
         .then(quizData => {
-            quizData.forEach(quiz => {
-                new Quiz(quiz)
+            quizData.data.forEach(quiz => {
+                new Quiz(quiz, quiz.attributes)
             })
         })
     showQuiz()
