@@ -142,6 +142,7 @@ const handleQuizBtnClick = (event) => {
             return result
         })
         quizContainer.innerHTML += currentQuiz.showQuiz()
+        quizContainer.innerHTML += currentQuiz.showQuestions()
     }
 }
 
