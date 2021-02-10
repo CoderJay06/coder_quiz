@@ -11,22 +11,32 @@ class Quiz {
     showQuiz() {
         return `
          <h2>${this.title}</h2>
+         <div class="question-container">
+            ${this.showQuestions()}
+         </div>
+         <button class="submit-quiz-btn">Submit Quiz</button>
          `
     }
 
     showQuestions() {
         return this.questions.map(question => {
             return `
-               <div class="question">${question.question}</div>
-               <div class=""answers">
-               <input type="radio" value="${question.answerChoices.a}">
-               a : ${question.answerChoices.a}
-               <input type="radio" value="${question.answerChoices.b}">
-               b : ${question.answerChoices.b}
-               <input type="radio" value="${question.answerChoices.c}">
-               c : ${question.answerChoices.c}
-               </div>
-            `
+                  <h4 class="question-description">${question.question}</h4>
+                  <div class="answers">
+                     <div class="answer-a">
+                        <input type="radio" value="${question.answerChoices.a}">
+                        a : ${question.answerChoices.a}
+                     </div>
+                     <div class="answer-b">
+                        <input type="radio" value="${question.answerChoices.b}">
+                        b : ${question.answerChoices.b}
+                     </div>
+                     <div class="answer-c">
+                        <input type="radio" value="${question.answerChoices.c}">
+                        c : ${question.answerChoices.c}
+                     </div>
+                  </div>
+               `
         }).join("")
     }
 
