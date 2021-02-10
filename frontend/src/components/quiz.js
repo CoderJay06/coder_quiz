@@ -33,7 +33,7 @@ class Quiz {
 
     findById(id) {
         if (this.id === id) {
-            return this
+            return true
         }
     }
 

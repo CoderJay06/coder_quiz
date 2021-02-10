@@ -130,19 +130,19 @@ const showQuiz = () => {
 
 const handleQuizBtnClick = (event) => {
     event.preventDefault()
-    const quizBtnTag = document.querySelector(`.quiz-${event.target.dataset.id}-btn`)
-    const quizId = Number(event.target.dataset.id)
-    if (quizId === Number(quizBtnTag.dataset.id)) {
+        //  const quizBtnTag = document.querySelector(`.quiz-${event.target.dataset.id}-btn`)
+    if (event.target.className === "quiz-btn") {
+        const quizId = Number(event.target.dataset.id)
         const quizContainer = document.getElementById("show-quiz")
             // iterate over quizzes and find by id
-        const currentQuiz = Quiz.all.reduce((result, currentQuiz) => {
+        const quiz = Quiz.all.reduce((result, currentQuiz) => {
             if (currentQuiz.findById(quizId)) {
                 result = currentQuiz
             }
             return result
         })
-        quizContainer.innerHTML += currentQuiz.showQuiz()
-        quizContainer.innerHTML += currentQuiz.showQuestions()
+        quizContainer.innerHTML += quiz.showQuiz()
+        quizContainer.innerHTML += quiz.showQuestions()
     }
 }
 

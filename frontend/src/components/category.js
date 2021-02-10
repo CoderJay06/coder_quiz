@@ -50,7 +50,7 @@ class Category {
                      <li>Difficulty: ${quiz.difficultyLevel}</li>
                      <li>Question Amount: ${quiz.questionAmount}</li>
                   </ul>
-                  <button class="quiz-${quiz.id}-btn" data-id="${quiz.id}">Take Quiz</button>
+                  <button class="quiz-btn" data-id="${quiz.id}">Take Quiz</button>
                   `
         })
         return quizzes.join()
