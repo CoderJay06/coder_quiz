@@ -1,9 +1,9 @@
 class Quiz {
-    constructor(quizJSON) {
-        this.id = quizJSON.id
-        this.title = quizJSON.title
-        this.difficultyLevel = quizJSON.difficultyLevel
-        this.questionAmount = quizJSON.questionAmount
+    constructor(quiz, quizAttributes) {
+        this.id = Number(quiz.id)
+        this.title = quizAttributes.title
+        this.difficultyLevel = quizAttributes.difficultyLevel
+        this.questionAmount = quizAttributes.questionAmount
         Quiz.all.push(this)
     }
 

@@ -74,10 +74,12 @@ const fetchCategories = () => {
         })
         .then(response => response.json())
         .then(categoriesData => {
-            if (categorySelector.childElementCount < categoriesData.length) {
-                categoriesData.forEach(category => {
+            if (categorySelector.childElementCount < categoriesData.data.length) {
+                categoriesData.data.forEach(category => {
                     //   debugger
-                    let option = new Category(category)
+                    let option = new Category(
+                        category, category.attributes, category.relationships,
+                        categoriesData.included)
                     categorySelector.innerHTML += option.renderCategory()
                         //   debugger
                         //   option.addEventListener("click", handleCategoriesClick)
@@ -96,6 +98,7 @@ const handleCategoryClick = (event) => {
     const categoryId = Number(selectedCategory.dataset.id)
     const category = Category.all.find(categoryObj => categoryObj.id === categoryId)
     const quizContainer = document.getElementById("quizzes-container")
+        //  debugger
     if (category) {
         quizContainer.innerHTML = category.getQuizzes()
         fetchQuiz()
@@ -113,8 +116,8 @@ const fetchQuiz = () => {
         })
         .then(response => response.json())
         .then(quizData => {
-            quizData.forEach(quiz => {
-                new Quiz(quiz)
+            quizData.data.forEach(quiz => {
+                new Quiz(quiz, quiz.attributes)
             })
         })
     showQuiz()
@@ -159,6 +162,7 @@ const logout = () => {
 
 const signupUser = (event) => {
     event.preventDefault()
+        //  debugger
     const emailInput = document.querySelector(".signup-email-input")
     const usernameInput = document.querySelector(".signup-username-input")
     const passwordInput = document.querySelector(".signup-password-input")
@@ -185,12 +189,12 @@ const signupUser = (event) => {
     // Send fetch request to users url
     fetch(USERS_URL, userConfigObj)
         .then(response => response.json())
-        .then(obj => {
+        .then(userObj => {
             // debugger
-            let user = new User({
-                id: obj.id,
-                email: obj.email,
-                username: obj.username
+            new User({
+                id: Number(userObj.data.id),
+                email: userObj.data.attributes.email,
+                username: userObj.data.attributes.username
             })
         })
 }

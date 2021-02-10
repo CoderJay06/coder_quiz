@@ -1,10 +1,32 @@
 // Category class ()
 class Category {
-    constructor(categoryJSON) {
-        this.id = categoryJSON.id
-        this.name = categoryJSON.name
-        this.quizzes = categoryJSON.quizzes
+    constructor(
+        category, categoryAttributes, categoryRelationships,
+        categoryRelationshipAttrs) {
+        this.id = Number(category.id)
+        this.name = categoryAttributes.name
+        this.quizzes = categoryRelationships.quizzes.data
+        this.assignQuizzesAttributes(categoryRelationshipAttrs)
         Category.all.push(this) // Store all category objs in array
+    }
+
+    assignQuizzesAttributes(attributes) {
+        const quizAttributes = attributes.map(quiz => {
+            if (this.id === quiz.attributes.category_id) {
+                return quiz.attributes
+            }
+        }).filter(quizObj => quizObj !== undefined)
+        this.setAttributes(quizAttributes)
+    }
+
+    setAttributes(quizAttributes) {
+        for (let i = 0; i < quizAttributes.length; i++) {
+            if (this.id === quizAttributes[i].category_id) {
+                this.quizzes[i].title = quizAttributes[i].title
+                this.quizzes[i].difficultyLevel = quizAttributes[i].difficultyLevel
+                this.quizzes[i].questionAmount = quizAttributes[i].questionAmount
+            }
+        }
     }
 
     // Method to render category to the dom
