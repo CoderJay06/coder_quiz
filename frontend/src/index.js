@@ -213,8 +213,16 @@ const loginUser = (event) => {
         password: passwordInput.value
     };
     //  debugger
-    // Make config object
-    let userConfigObj = {
+    // Check if login form filled out 
+    if (loginFormFilledOut(userData)) {
+        fetchUser(userData)
+    } else {
+        alert("Login must be filled out on submit")
+    }
+}
+
+const fetchUser = (userData) => {
+    const userConfigObj = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -222,10 +230,18 @@ const loginUser = (event) => {
         },
         body: JSON.stringify(userData)
     };
-    //  debugger
     // Send fetch request to login url
     fetch(SESSIONS_URL, userConfigObj)
-        .then(response => response.json())
+        .then(response => checkForErrors(response))
+        .catch(error => {
+            error.message = "Error logging in"
+            alert(error.message)
+        })
+}
+
+const loginFormFilledOut = (userData) => {
+    return (userData.username.length > 0 &&
+        userData.password.length > 0)
 }
 
 const checkForErrors = (response) => {
