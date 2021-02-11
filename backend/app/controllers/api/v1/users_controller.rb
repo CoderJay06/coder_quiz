@@ -15,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
          session[:user_id] = user.id 
          render json: UserSerializer.new(user), status: :accepted
       else  
-         render json: { message: 'Sorry, there was a problem signing up..'}
+         render json: { errors: user.errors.full_messages.join(", ")}
       end 
    end 
 

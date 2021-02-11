@@ -1,3 +1,5 @@
 class Quiz < ApplicationRecord
-  belongs_to :category
+   validates :title, :difficultyLevel, :questionAmount, :category_id,
+   presence: true
+   belongs_to :category
 end
