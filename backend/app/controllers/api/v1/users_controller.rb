@@ -1,44 +1,42 @@
 class Api::V1::UsersController < ApplicationController
-   # index
+   before_action :find_user, only: [:show, :destroy]
+
    def index 
       users = User.all 
 
-      # render json: users, except: [:created_at, :updated_at]
       render json: UserSerializer.new(users), status: :accepted
    end 
-
-   # # render signup
-   # def new
-   # end
 
    # signup user
    def create
       user = User.new(user_params)
 
       if user.save 
-         # byebug
-         render json: UserSerializer.new(user)
+         session[:user_id] = user.id 
+         render json: UserSerializer.new(user), status: :accepted
       else  
-         render json: { message: 'Sorry, there was a problem..'}
+         render json: { message: 'Sorry, there was a problem signing up..'}
       end 
    end 
 
    # view a user
    def show 
-      user = User.find_by(id: params[:id])
-
-      render json: UserSerializer.new(user), status: :accepted
+      render json: UserSerializer.new(@user), status: :accepted
    end 
 
    # delete user
    def destroy 
-      user = User.find_by(id: params[:id])
-      user.destroy
+      @user.destroy
 
-      render json: {userId: user.id}
+      render json: {userId: @user.id}
    end 
 
    private 
+
+   def find_user
+      @user = User.find_by(id: params[:id])
+   end 
+
    def user_params
       params.require(:user).permit(:email, :username, :password, :password_confirmation)
    end 
