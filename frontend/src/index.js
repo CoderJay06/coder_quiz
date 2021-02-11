@@ -164,44 +164,24 @@ const logout = () => {
 const signupUser = (event) => {
     event.preventDefault()
         //  debugger
-    const emailInput = document.querySelector(".signup-email-input")
-    const usernameInput = document.querySelector(".signup-username-input")
-    const passwordInput = document.querySelector(".signup-password-input")
-    const passwordConfirmation = document.querySelector(".signup-password-confirmation")
+    const emailInput = event.target.children[2]
+    const usernameInput = event.target.children[5]
+    const passwordInput = event.target.children[8]
+    const passwordConfirmationInput = event.target.children[11]
 
     const newUserData = {
         user: {
             email: emailInput.value,
             username: usernameInput.value,
             password: passwordInput.value,
-            password_confirmation: passwordConfirmation.value
+            password_confirmation: passwordConfirmationInput.value
         }
-    }; // {user: {username: '', password: ''}}
-    // Make config object
-    const userConfigObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(newUserData)
     };
-    //  debugger
-    // Send fetch request to users url
-    fetch(USERS_URL, userConfigObj)
-        .then(response => checkForErrors(response))
-        .then(userObj => {
-            // debugger
-            new User({
-                id: Number(userObj.data.id),
-                email: userObj.data.attributes.email,
-                username: userObj.data.attributes.username
-            })
-        })
-        .catch(error => {
-            error.message = "Signup was unsuccessful"
-            alert(error.message)
-        })
+    if (signupFormFilledOut(newUserData)) {
+        fetchNewUser(newUserData)
+    } else {
+        alert("Signup form must be filled out on submit")
+    }
 }
 
 const loginUser = (event) => {
@@ -219,6 +199,43 @@ const loginUser = (event) => {
     } else {
         alert("Login must be filled out on submit")
     }
+}
+
+const signupFormFilledOut = (newUserData) => {
+    return (
+        newUserData.user.email.length > 0 &&
+        newUserData.user.username.length > 0 &&
+        newUserData.user.password.length > 0 &&
+        newUserData.user.password_confirmation.length > 0
+    )
+}
+
+const loginFormFilledOut = (userData) => {
+    return (userData.username.length > 0 &&
+        userData.password.length > 0)
+}
+
+const fetchNewUser = (newUserData) => {
+    // Make config object
+    const userConfigObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(newUserData)
+    };
+    // Send fetch request to users url
+    fetch(USERS_URL, userConfigObj)
+        .then(response => checkForErrors(response))
+        .then(userObj => {
+            // debugger
+            createUser(userObj)
+        })
+        .catch(error => {
+            error.message = "Signup was unsuccessful"
+            alert(error.message)
+        })
 }
 
 const fetchUser = (userData) => {
@@ -239,9 +256,12 @@ const fetchUser = (userData) => {
         })
 }
 
-const loginFormFilledOut = (userData) => {
-    return (userData.username.length > 0 &&
-        userData.password.length > 0)
+const createUser = (userObj) => {
+    new User({
+        id: Number(userObj.data.id),
+        email: userObj.data.attributes.email,
+        username: userObj.data.attributes.username
+    })
 }
 
 const checkForErrors = (response) => {
