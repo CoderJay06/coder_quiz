@@ -189,7 +189,7 @@ const signupUser = (event) => {
     //  debugger
     // Send fetch request to users url
     fetch(USERS_URL, userConfigObj)
-        .then(response => response.json())
+        .then(response => checkForErrors(response))
         .then(userObj => {
             // debugger
             new User({
@@ -197,6 +197,10 @@ const signupUser = (event) => {
                 email: userObj.data.attributes.email,
                 username: userObj.data.attributes.username
             })
+        })
+        .catch(error => {
+            error.message = "Signup was unsuccessful"
+            alert(error.message)
         })
 }
 
@@ -222,6 +226,14 @@ const loginUser = (event) => {
     // Send fetch request to login url
     fetch(SESSIONS_URL, userConfigObj)
         .then(response => response.json())
+}
+
+const checkForErrors = (response) => {
+    if (response.status >= 200 && response.status <= 299) {
+        return response.json()
+    } else {
+        throw Error(response.statusText);
+    }
 }
 
 // Make function for rendering the signup form
