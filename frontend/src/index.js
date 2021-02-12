@@ -63,8 +63,7 @@ const createCategorySelector = () => {
 // }
 
 const fetchCategories = () => {
-    const categorySelector = document.getElementById("categories")
-        // Fetch and load all categories
+    // Fetch and load all categories
     fetch(CATEGORIES_URL, {
             method: "GET",
             headers: {
@@ -72,21 +71,29 @@ const fetchCategories = () => {
                 "Accept": "application/json"
             }
         })
-        .then(response => response.json())
+        .then(response => checkForErrors(response))
         .then(categoriesData => {
-            if (categorySelector.childElementCount < categoriesData.data.length) {
-                categoriesData.data.forEach(category => {
-                    //   debugger
-                    let option = new Category(
-                        category, category.attributes, category.relationships,
-                        categoriesData.included)
-                    categorySelector.innerHTML += option.renderCategory()
-                        //   debugger
-                        //   option.addEventListener("click", handleCategoriesClick)
-                })
-            }
+            handleCategoryData(categoriesData)
         })
+}
+
+const handleCategoryData = (categoriesData) => {
+    const categorySelector = document.getElementById("categories")
+    if (categorySelector.childElementCount < categoriesData.data.length) {
+        categoriesData.data.forEach(category => {
+            let option = createCategory(category, categoriesData)
+            categorySelector.innerHTML += option.renderCategory()
+        })
+    }
     attatchListenerToCategories(categorySelector)
+}
+
+const createCategory = (category, categoriesData) => {
+    return new Category(
+        category, category.attributes,
+        category.relationships,
+        categoriesData.included
+    )
 }
 
 const attatchListenerToCategories = (categories) => {
