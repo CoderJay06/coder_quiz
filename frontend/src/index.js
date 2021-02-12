@@ -114,16 +114,20 @@ const fetchQuiz = () => {
                 "Accept": "application/json"
             }
         })
-        .then(response => response.json())
+        .then(response => checkForErrors(response))
         .then(quizData => {
-            quizData.data.forEach(quiz => {
-                new Quiz(quiz, quiz.attributes)
-            })
+            storeQuizzes(quizData)
         })
-    showQuiz()
+    attatchQuizBtnListener()
 }
 
-const showQuiz = () => {
+const storeQuizzes = (quizData) => {
+    quizData.data.forEach(quiz => {
+        new Quiz(quiz, quiz.attributes)
+    })
+}
+
+const attatchQuizBtnListener = () => {
     const quizButton = document.getElementById("quizzes-container")
     quizButton.addEventListener("click", handleQuizBtnClick)
 }
