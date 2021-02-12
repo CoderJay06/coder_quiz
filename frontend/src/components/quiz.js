@@ -4,7 +4,7 @@ class Quiz {
         this.title = quizAttributes.title
         this.difficultyLevel = quizAttributes.difficultyLevel
         this.questionAmount = quizAttributes.questionAmount
-        this.questions = this.questions()
+        this.questions = this.setQuestions()
         Quiz.all.push(this)
     }
 
@@ -47,8 +47,8 @@ class Quiz {
         }
     }
 
-    questions() {
-        const questions = [{
+    setQuestions() {
+        const questionsArray = [{
                 question: "Who invented the term RESTful?",
                 answerChoices: {
                     a: "Avi Flombaum",
@@ -76,7 +76,7 @@ class Quiz {
                 answer: "a"
             }
         ];
-        return questions
+        return questionsArray
     }
 
 }
