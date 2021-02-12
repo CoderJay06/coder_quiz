@@ -63,8 +63,7 @@ const createCategorySelector = () => {
 // }
 
 const fetchCategories = () => {
-    const categorySelector = document.getElementById("categories")
-        // Fetch and load all categories
+    // Fetch and load all categories
     fetch(CATEGORIES_URL, {
             method: "GET",
             headers: {
@@ -72,21 +71,29 @@ const fetchCategories = () => {
                 "Accept": "application/json"
             }
         })
-        .then(response => response.json())
+        .then(response => checkForErrors(response))
         .then(categoriesData => {
-            if (categorySelector.childElementCount < categoriesData.data.length) {
-                categoriesData.data.forEach(category => {
-                    //   debugger
-                    let option = new Category(
-                        category, category.attributes, category.relationships,
-                        categoriesData.included)
-                    categorySelector.innerHTML += option.renderCategory()
-                        //   debugger
-                        //   option.addEventListener("click", handleCategoriesClick)
-                })
-            }
+            handleCategoryData(categoriesData)
         })
+}
+
+const handleCategoryData = (categoriesData) => {
+    const categorySelector = document.getElementById("categories")
+    if (categorySelector.childElementCount < categoriesData.data.length) {
+        categoriesData.data.forEach(category => {
+            let option = createCategory(category, categoriesData)
+            categorySelector.innerHTML += option.renderCategory()
+        })
+    }
     attatchListenerToCategories(categorySelector)
+}
+
+const createCategory = (category, categoriesData) => {
+    return new Category(
+        category, category.attributes,
+        category.relationships,
+        categoriesData.included
+    )
 }
 
 const attatchListenerToCategories = (categories) => {
@@ -114,16 +121,20 @@ const fetchQuiz = () => {
                 "Accept": "application/json"
             }
         })
-        .then(response => response.json())
+        .then(response => checkForErrors(response))
         .then(quizData => {
-            quizData.data.forEach(quiz => {
-                new Quiz(quiz, quiz.attributes)
-            })
+            storeQuizzes(quizData)
         })
-    showQuiz()
+    attatchQuizBtnListener()
 }
 
-const showQuiz = () => {
+const storeQuizzes = (quizData) => {
+    quizData.data.forEach(quiz => {
+        new Quiz(quiz, quiz.attributes)
+    })
+}
+
+const attatchQuizBtnListener = () => {
     const quizButton = document.getElementById("quizzes-container")
     quizButton.addEventListener("click", handleQuizBtnClick)
 }
@@ -164,40 +175,24 @@ const logout = () => {
 const signupUser = (event) => {
     event.preventDefault()
         //  debugger
-    const emailInput = document.querySelector(".signup-email-input")
-    const usernameInput = document.querySelector(".signup-username-input")
-    const passwordInput = document.querySelector(".signup-password-input")
-    const passwordConfirmation = document.querySelector(".signup-password-confirmation")
+    const emailInput = event.target.children[2]
+    const usernameInput = event.target.children[5]
+    const passwordInput = event.target.children[8]
+    const passwordConfirmationInput = event.target.children[11]
 
     const newUserData = {
         user: {
             email: emailInput.value,
             username: usernameInput.value,
             password: passwordInput.value,
-            password_confirmation: passwordConfirmation.value
+            password_confirmation: passwordConfirmationInput.value
         }
-    }; // {user: {username: '', password: ''}}
-    // Make config object
-    const userConfigObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(newUserData)
     };
-    //  debugger
-    // Send fetch request to users url
-    fetch(USERS_URL, userConfigObj)
-        .then(response => response.json())
-        .then(userObj => {
-            // debugger
-            new User({
-                id: Number(userObj.data.id),
-                email: userObj.data.attributes.email,
-                username: userObj.data.attributes.username
-            })
-        })
+    if (signupFormFilledOut(newUserData)) {
+        fetchNewUser(newUserData)
+    } else {
+        alert("Signup form must be filled out on submit")
+    }
 }
 
 const loginUser = (event) => {
@@ -209,8 +204,53 @@ const loginUser = (event) => {
         password: passwordInput.value
     };
     //  debugger
+    // Check if login form filled out 
+    if (loginFormFilledOut(userData)) {
+        fetchUser(userData)
+    } else {
+        alert("Login must be filled out on submit")
+    }
+}
+
+const signupFormFilledOut = (newUserData) => {
+    return (
+        newUserData.user.email.length > 0 &&
+        newUserData.user.username.length > 0 &&
+        newUserData.user.password.length > 0 &&
+        newUserData.user.password_confirmation.length > 0
+    )
+}
+
+const loginFormFilledOut = (userData) => {
+    return (userData.username.length > 0 &&
+        userData.password.length > 0)
+}
+
+const fetchNewUser = (newUserData) => {
     // Make config object
-    let userConfigObj = {
+    const userConfigObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(newUserData)
+    };
+    // Send fetch request to users url
+    fetch(USERS_URL, userConfigObj)
+        .then(response => checkForErrors(response))
+        .then(userObj => {
+            // debugger
+            createUser(userObj)
+        })
+        .catch(error => {
+            error.message = "Signup was unsuccessful"
+            alert(error.message)
+        })
+}
+
+const fetchUser = (userData) => {
+    const userConfigObj = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -218,10 +258,29 @@ const loginUser = (event) => {
         },
         body: JSON.stringify(userData)
     };
-    //  debugger
     // Send fetch request to login url
     fetch(SESSIONS_URL, userConfigObj)
-        .then(response => response.json())
+        .then(response => checkForErrors(response))
+        .catch(error => {
+            error.message = "Error logging in"
+            alert(error.message)
+        })
+}
+
+const createUser = (userObj) => {
+    new User({
+        id: Number(userObj.data.id),
+        email: userObj.data.attributes.email,
+        username: userObj.data.attributes.username
+    })
+}
+
+const checkForErrors = (response) => {
+    if (response.status >= 200 && response.status <= 299) {
+        return response.json()
+    } else {
+        throw Error(response.statusText);
+    }
 }
 
 // Make function for rendering the signup form

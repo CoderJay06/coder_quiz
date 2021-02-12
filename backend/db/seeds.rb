@@ -12,12 +12,24 @@ Category.destroy_all
 Quiz.destroy_all
 
 # Users seed data
-user1 = User.create(email: 'jay@flatiron.com', username: 'jay06', password: 'j123')
-user2 = User.create(email: 'bob@email.com', username: 'bob01', password: 'bob123')
-user3 = User.create(email: 'mike@flatiron.com', username: 'mike01', password: 'mik123')
-user4 = User.create(email: 'cindy@mail.com', username: 'cindy02', password: 'cind123')
-user5 = User.create(email: 'sarah@mail.com', username: 'sarah05', password: 'sara123')
-user6 = User.create(email: 'avi@example.com', username: 'avi04', password: 'av123')
+user1 = User.create(
+   email: 'jay@flatiron.com', username: 'jay06', 
+   password: 'j123', password_confirmation: 'j123')
+user2 = User.create(
+   email: 'bob@email.com', username: 'bob01', 
+   password: 'bob123', password_confirmation: 'bob123')
+user3 = User.create(
+   email: 'mike@flatiron.com', username: 'mike01', 
+   password: 'mik123', password_confirmation: 'mik123')
+user4 = User.create(
+   email: 'cindy@mail.com', username: 'cindy02', 
+   password: 'cind123', password_confirmation: 'cind123')
+user5 = User.create(
+   email: 'sarah@mail.com', username: 'sarah05', 
+   password: 'sara123', password_confirmation: 'sara123')
+user6 = User.create(
+   email: 'avi@example.com', username: 'avi04', 
+   password: 'av123', password_confirmation: 'av123')
 
 # Categories seed data
 category1 = Category.create(name: 'Algorithms')

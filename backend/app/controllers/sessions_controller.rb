@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :find_user, :authenticate_user
+  before_action :find_user, :authenticate_user, only: [:create]
 
    # Login user
   def create
@@ -19,6 +19,8 @@ class SessionsController < ApplicationController
   end 
 
   def authenticate_user
-     @user && @user.authenticate(params[:password]) 
+     unless @user && @user.authenticate(params[:password]) 
+         render json: { errors: "Invalid login credentials" }, status: :unauthorized
+     end 
   end 
 end
