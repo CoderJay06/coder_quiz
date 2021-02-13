@@ -55,3 +55,13 @@ input[type=submit]:hover {
 .signup-login-links a {
     color: #7b5d97;
 }
+
+
+/* Quiz styles */
+
+#show-quiz {
+    display: inline-block;
+}
+
+
+/* Questions and answers styles */
