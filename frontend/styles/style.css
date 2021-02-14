@@ -57,6 +57,17 @@ input[type=submit]:hover {
 }
 
 
+/* Categories styles */
+
+#categories-container {
+    display: none;
+}
+
+#categories-container.show-categories {
+    display: inline-block;
+}
+
+
 /* Quiz styles */
 
 #show-quiz {
