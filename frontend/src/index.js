@@ -240,7 +240,6 @@ const fetchNewUser = (newUserData) => {
     fetch(USERS_URL, userConfigObj)
         .then(response => checkForErrors(response))
         .then(userObj => {
-            // debugger
             createUser(userObj)
             displaySignupMesage()
         })
@@ -261,7 +260,10 @@ const fetchUser = (userData) => {
     };
     // Send fetch request to login url
     fetch(SESSIONS_URL, userConfigObj)
-        .then(response => checkForErrors(response))
+        .then(response => {
+            checkForErrors(response)
+            displayLoginMessage()
+        })
         .catch(error => {
             error.message = "Error logging in"
             alert(error.message)
@@ -282,6 +284,14 @@ const displaySignupMesage = () => {
     signupForm.hidden = true
     logoutLink.hidden = false
     signupLoginLinks.innerHTML = "You've signed up successfully!"
+}
+
+const displayLoginMessage = () => {
+    const signupLoginLinks = document.querySelector(".signup-login-links")
+    const logoutLink = document.querySelector(".logout-link")
+    loginForm.hidden = true
+    logoutLink.hidden = false
+    signupLoginLinks.innerHTML = "You're logged in"
 }
 
 const checkForErrors = (response) => {
