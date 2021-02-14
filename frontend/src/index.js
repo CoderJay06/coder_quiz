@@ -171,6 +171,7 @@ const logout = () => {
         }
     })
     showLinks()
+    showCategories(false)
 }
 
 const signupUser = (event) => {
@@ -243,6 +244,7 @@ const fetchNewUser = (newUserData) => {
         .then(userObj => {
             createUser(userObj)
             hideLinksAndForms()
+            showCategories(true)
         })
         .catch(error => {
             error.message = "Signup was unsuccessful"
@@ -264,6 +266,7 @@ const fetchUser = (userData) => {
         .then(response => {
             checkForErrors(response)
             hideLinksAndForms()
+            showCategories(true)
         })
         .catch(error => {
             error.message = "Error logging in"
@@ -293,6 +296,16 @@ const showLinks = () => {
     const logoutLink = document.querySelector(".logout-link")
     signupLoginLinks.hidden = false
     logoutLink.hidden = true
+}
+
+const showCategories = (show) => {
+    const categoriesContainer =
+        document.getElementById("categories-container")
+    if (show) {
+        categoriesContainer.className = "show-categories"
+    } else {
+        categoriesContainer.className = "hide-categories"
+    }
 }
 
 const checkForErrors = (response) => {
