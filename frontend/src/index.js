@@ -170,6 +170,7 @@ const logout = () => {
             "Accept": "application/json"
         }
     })
+    showLinks()
 }
 
 const signupUser = (event) => {
@@ -241,7 +242,7 @@ const fetchNewUser = (newUserData) => {
         .then(response => checkForErrors(response))
         .then(userObj => {
             createUser(userObj)
-            displaySignupMesage()
+            hideLinksAndForms()
         })
         .catch(error => {
             error.message = "Signup was unsuccessful"
@@ -262,7 +263,7 @@ const fetchUser = (userData) => {
     fetch(SESSIONS_URL, userConfigObj)
         .then(response => {
             checkForErrors(response)
-            displayLoginMessage()
+            hideLinksAndForms()
         })
         .catch(error => {
             error.message = "Error logging in"
@@ -278,20 +279,20 @@ const createUser = (userObj) => {
     })
 }
 
-const displaySignupMesage = () => {
+const hideLinksAndForms = () => {
     const signupLoginLinks = document.querySelector(".signup-login-links")
     const logoutLink = document.querySelector(".logout-link")
+    signupLoginLinks.hidden = true
     signupForm.hidden = true
-    logoutLink.hidden = false
-    signupLoginLinks.innerHTML = "You've signed up successfully!"
-}
-
-const displayLoginMessage = () => {
-    const signupLoginLinks = document.querySelector(".signup-login-links")
-    const logoutLink = document.querySelector(".logout-link")
     loginForm.hidden = true
     logoutLink.hidden = false
-    signupLoginLinks.innerHTML = "You're logged in"
+}
+
+const showLinks = () => {
+    const signupLoginLinks = document.querySelector(".signup-login-links")
+    const logoutLink = document.querySelector(".logout-link")
+    signupLoginLinks.hidden = false
+    logoutLink.hidden = true
 }
 
 const checkForErrors = (response) => {
