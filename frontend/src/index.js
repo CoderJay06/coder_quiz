@@ -242,6 +242,7 @@ const fetchNewUser = (newUserData) => {
         .then(userObj => {
             // debugger
             createUser(userObj)
+            displaySignupMesage()
         })
         .catch(error => {
             error.message = "Signup was unsuccessful"
@@ -273,6 +274,14 @@ const createUser = (userObj) => {
         email: userObj.data.attributes.email,
         username: userObj.data.attributes.username
     })
+}
+
+const displaySignupMesage = () => {
+    const signupLoginLinks = document.querySelector(".signup-login-links")
+    const logoutLink = document.querySelector(".logout-link")
+    signupForm.hidden = true
+    logoutLink.hidden = false
+    signupLoginLinks.innerHTML = "You've signed up successfully!"
 }
 
 const checkForErrors = (response) => {
