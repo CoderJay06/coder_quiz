@@ -70,7 +70,19 @@ input[type=submit]:hover {
 
 /* Quiz styles */
 
+#quizzes-container {
+    display: none;
+}
+
+#quizzes-container.show {
+    display: block;
+}
+
 #show-quiz {
+    display: none;
+}
+
+#show-quiz.show {
     display: inline-block;
 }
 

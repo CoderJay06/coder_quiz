@@ -108,6 +108,7 @@ const handleCategoryClick = (event) => {
         //  debugger
     if (category) {
         quizContainer.innerHTML = category.getQuizzes()
+        showQuizzes(true)
         fetchQuiz()
     }
 }
@@ -152,7 +153,8 @@ const handleQuizBtnClick = (event) => {
             }
             return result
         })
-        quizContainer.innerHTML += quiz.showQuiz()
+        quizContainer.innerHTML = quiz.showQuiz()
+        showQuiz(true)
             //   quizContainer.innerHTML += quiz.showQuestions()
     }
 }
@@ -172,6 +174,8 @@ const logout = () => {
     })
     showLinks()
     showCategories(false)
+    showQuizzes(false)
+    showQuiz(false)
 }
 
 const signupUser = (event) => {
@@ -305,6 +309,24 @@ const showCategories = (show) => {
         categoriesContainer.className = "show-categories"
     } else {
         categoriesContainer.className = "hide-categories"
+    }
+}
+
+const showQuizzes = (show) => {
+    const quizzesContainer = document.getElementById("quizzes-container")
+    if (show) {
+        quizzesContainer.className = "show"
+    } else {
+        quizzesContainer.className = "hide"
+    }
+}
+
+const showQuiz = (show) => {
+    const quiz = document.getElementById("show-quiz")
+    if (show) {
+        quiz.className = "show"
+    } else {
+        quiz.className = "hide"
     }
 }
 
