@@ -9,7 +9,7 @@ const signupButton = document.querySelector(".signup-btn")
 
 document.addEventListener("DOMContentLoaded", () => {
     renderFormsOnClick()
-    User.attatchFormListeners(signupUser, loginUser)
+    User.attatchFormListeners(loginUser)
     renderCategorySelector()
 });
 
@@ -191,28 +191,28 @@ const logout = () => {
     showQuiz(false)
 }
 
-const signupUser = (event) => {
-    event.preventDefault()
-        //  debugger
-    const emailInput = event.target.children[2]
-    const usernameInput = event.target.children[5]
-    const passwordInput = event.target.children[8]
-    const passwordConfirmationInput = event.target.children[11]
+// const signupUser = (event) => {
+//     event.preventDefault()
+//         //  debugger
+//     const emailInput = event.target.children[2]
+//     const usernameInput = event.target.children[5]
+//     const passwordInput = event.target.children[8]
+//     const passwordConfirmationInput = event.target.children[11]
 
-    const newUserData = {
-        user: {
-            email: emailInput.value,
-            username: usernameInput.value,
-            password: passwordInput.value,
-            password_confirmation: passwordConfirmationInput.value
-        }
-    };
-    if (signupFormFilledOut(newUserData)) {
-        fetchNewUser(newUserData)
-    } else {
-        alert("Signup form must be filled out on submit")
-    }
-}
+//     const newUserData = {
+//         user: {
+//             email: emailInput.value,
+//             username: usernameInput.value,
+//             password: passwordInput.value,
+//             password_confirmation: passwordConfirmationInput.value
+//         }
+//     };
+//     if (signupFormFilledOut(newUserData)) {
+//         fetchNewUser(newUserData)
+//     } else {
+//         alert("Signup form must be filled out on submit")
+//     }
+// }
 
 const loginUser = (event) => {
     event.preventDefault()
@@ -231,43 +231,43 @@ const loginUser = (event) => {
     }
 }
 
-const signupFormFilledOut = (newUserData) => {
-    return (
-        newUserData.user.email.length > 0 &&
-        newUserData.user.username.length > 0 &&
-        newUserData.user.password.length > 0 &&
-        newUserData.user.password_confirmation.length > 0
-    )
-}
+// const signupFormFilledOut = (newUserData) => {
+//     return (
+//         newUserData.user.email.length > 0 &&
+//         newUserData.user.username.length > 0 &&
+//         newUserData.user.password.length > 0 &&
+//         newUserData.user.password_confirmation.length > 0
+//     )
+// }
 
 const loginFormFilledOut = (userData) => {
     return (userData.username.length > 0 &&
         userData.password.length > 0)
 }
 
-const fetchNewUser = (newUserData) => {
-    // Make config object
-    const userConfigObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(newUserData)
-    };
-    // Send fetch request to users url
-    fetch(USERS_URL, userConfigObj)
-        .then(response => checkForErrors(response))
-        .then(userObj => {
-            createUser(userObj)
-            hideLinksAndForms()
-            showCategories(true)
-        })
-        .catch(error => {
-            error.message = "Signup was unsuccessful"
-            alert(error.message)
-        })
-}
+// const fetchNewUser = (newUserData) => {
+//     // Make config object
+//     const userConfigObj = {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             "Accept": "application/json"
+//         },
+//         body: JSON.stringify(newUserData)
+//     };
+//     // Send fetch request to users url
+//     fetch(USERS_URL, userConfigObj)
+//         .then(response => checkForErrors(response))
+//         .then(userObj => {
+//             createUser(userObj)
+//             hideLinksAndForms()
+//             showCategories(true)
+//         })
+//         .catch(error => {
+//             error.message = "Signup was unsuccessful"
+//             alert(error.message)
+//         })
+// }
 
 const fetchUser = (userData) => {
     const userConfigObj = {
@@ -291,13 +291,13 @@ const fetchUser = (userData) => {
         })
 }
 
-const createUser = (userObj) => {
-    new User({
-        id: Number(userObj.data.id),
-        email: userObj.data.attributes.email,
-        username: userObj.data.attributes.username
-    })
-}
+// const createUser = (userObj) => {
+//     new User({
+//         id: Number(userObj.data.id),
+//         email: userObj.data.attributes.email,
+//         username: userObj.data.attributes.username
+//     })
+// }
 
 const hideLinksAndForms = () => {
     const signupLoginLinks = document.querySelector(".signup-login-links")
