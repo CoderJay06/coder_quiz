@@ -172,10 +172,7 @@ const logout = () => {
             "Accept": "application/json"
         }
     })
-    showLinks()
-    showCategories(false)
-    showQuizzes(false)
-    showQuiz(false)
+    showLoggedOutLinks()
 }
 
 const signupUser = (event) => {
@@ -293,6 +290,13 @@ const hideLinksAndForms = () => {
     signupForm.hidden = true
     loginForm.hidden = true
     logoutLink.hidden = false
+}
+
+const showLoggedOutLinks = () => {
+    showLinks()
+    showCategories(false)
+    showQuizzes(false)
+    showQuiz(false)
 }
 
 const showLinks = () => {
