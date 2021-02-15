@@ -5,22 +5,35 @@ const CATEGORIES_URL = `${BASE_URL}/api/v1/categories` // Set url global variabl
 const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
 const signupForm = document.querySelector("#signup-form")
 const loginForm = document.querySelector("#login-form")
-    // const signupButton = document.querySelector(".signup-btn")
+const signupButton = document.querySelector(".signup-btn")
 
 document.addEventListener("DOMContentLoaded", () => {
-    signupForm.addEventListener("submit", signupUser)
-    loginForm.addEventListener("submit", loginUser)
+    renderFormsOnClick()
+    User.attatchFormListeners(signupUser, loginUser)
     renderCategorySelector()
-        //  renderQuiz()
 });
 
+const renderFormsOnClick = () => {
+    renderSignupForm()
+    renderLoginForm()
+}
 
 const renderSignupForm = () => {
-    loginForm.hidden = true
+    const signupLink = document.querySelector(".signup-link")
+    signupLink.addEventListener("click", handleSignupClick)
+}
+
+const handleSignupClick = (event) => {
     signupForm.hidden = false
+    loginForm.hidden = true
 }
 
 const renderLoginForm = () => {
+    const loginLink = document.querySelector(".login-link")
+    loginLink.addEventListener("click", handleLoginClick)
+}
+
+const handleLoginClick = (event) => {
     signupForm.hidden = true
     loginForm.hidden = false
 }

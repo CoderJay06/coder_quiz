@@ -111,6 +111,9 @@ Model Relationships
 
 # REFACTORING
 
+   ## Refactor OOJS 
+      - Seperate functions, event listeners, fetch requests, url's into classes
+
    ## Best Practices 
       JavaScript
          [ ] Use classes and functions to organize your code into reusable pieces.

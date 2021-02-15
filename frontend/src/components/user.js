@@ -6,5 +6,12 @@ class User {
         this.username = userJSON.username
         User.all.push(this)
     }
+
+    static attatchFormListeners(signupUser, loginUser) {
+        this.signupForm = document.querySelector("#signup-form")
+        this.loginForm = document.querySelector("#login-form")
+        this.signupForm.addEventListener("submit", signupUser)
+        this.loginForm.addEventListener("submit", loginUser)
+    }
 }
 User.all = []
