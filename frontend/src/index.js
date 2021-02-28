@@ -5,13 +5,11 @@ const CATEGORIES_URL = `${BASE_URL}/api/v1/categories` // Set url global variabl
 const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
 const signupForm = document.querySelector("#signup-form")
 const loginForm = document.querySelector("#login-form")
-    // const signupButton = document.querySelector(".signup-btn")
 
 document.addEventListener("DOMContentLoaded", () => {
     signupForm.addEventListener("submit", signupUser)
     loginForm.addEventListener("submit", loginUser)
     renderCategorySelector()
-        //  renderQuiz()
 });
 
 
@@ -25,21 +23,10 @@ const renderLoginForm = () => {
     loginForm.hidden = false
 }
 
-// const handleCategorySelect = (event) => {
-//     //  debugger
-//     event.preventDefault()
-//     renderCategories()
-// }
-
 const renderCategorySelector = () => {
     createCategorySelector()
     fetchCategories()
 }
-
-// const renderQuiz = () => {
-//     fetchQuiz()
-//     showQuiz()
-// }
 
 const createCategorySelector = () => {
     const categoryContainer = document.querySelector("#categories-container")
@@ -49,18 +36,6 @@ const createCategorySelector = () => {
     categorySelector.innerHTML += `<option value="">category</option>`
     categoryContainer.appendChild(categorySelector)
 }
-
-// const handleCategorySelector = () => {
-//     //  const categorySelector = document.getElementById("categories")
-//     //  categorySelector.addEventListener("click", handleCategoriesClick)
-//     fetchCategories()
-// }
-
-// const handleCategoriesClick = (event) => {
-//     //  debugger
-//     event.preventDefault()
-//         //  fetchCategories(event)
-// }
 
 const fetchCategories = () => {
     // Fetch and load all categories
@@ -101,11 +76,12 @@ const attatchListenerToCategories = (categories) => {
 }
 
 const handleCategoryClick = (event) => {
+    event.preventDefault()
     const selectedCategory = event.target.options[event.target.selectedIndex]
     const categoryId = Number(selectedCategory.dataset.id)
     const category = Category.all.find(categoryObj => categoryObj.id === categoryId)
     const quizContainer = document.getElementById("quizzes-container")
-        //  debugger
+   
     if (category) {
         quizContainer.innerHTML = category.getQuizzes()
         showQuizzes(true)
@@ -114,7 +90,6 @@ const handleCategoryClick = (event) => {
 }
 
 const fetchQuiz = () => {
-    //  const quizButton = document.querySelector(".quiz-btn")
     fetch(QUIZZES_URL, {
             method: "GET",
             headers: {
@@ -142,11 +117,12 @@ const attatchQuizBtnListener = () => {
 
 const handleQuizBtnClick = (event) => {
     event.preventDefault()
-        //  const quizBtnTag = document.querySelector(`.quiz-${event.target.dataset.id}-btn`)
+  
     if (event.target.className === "quiz-btn") {
         const quizId = Number(event.target.dataset.id)
         const quizContainer = document.getElementById("show-quiz")
-            // iterate over quizzes and find by id
+
+         // iterate over quizzes and find by id
         const quiz = Quiz.all.reduce((result, currentQuiz) => {
             if (currentQuiz.findById(quizId)) {
                 result = currentQuiz
@@ -155,8 +131,24 @@ const handleQuizBtnClick = (event) => {
         })
         quizContainer.innerHTML = quiz.showQuiz()
         showQuiz(true)
-            //   quizContainer.innerHTML += quiz.showQuestions()
+        attatchQuizSubmitListener()
     }
+}
+
+attatchQuizSubmitListener = () => {
+   const submitQuizBtn = document.querySelector('.submit-quiz-btn')
+   submitQuizBtn.addEventListener('click', handleQuizSubmitBtnClick)
+}
+
+// handle quiz submit
+handleQuizSubmitBtnClick = (event) => {
+   event.preventDefault()
+   confirmQuizSubmit()
+}
+
+confirmQuizSubmit = () => {
+   return confirm("Are you sure you want to submit?") ?
+      showQuiz(false) : showQuiz(true)
 }
 
 const handleLogout = () => {
@@ -177,7 +169,7 @@ const logout = () => {
 
 const signupUser = (event) => {
     event.preventDefault()
-        //  debugger
+   
     const emailInput = event.target.children[2]
     const usernameInput = event.target.children[5]
     const passwordInput = event.target.children[8]
@@ -200,13 +192,14 @@ const signupUser = (event) => {
 
 const loginUser = (event) => {
     event.preventDefault()
+
     const usernameInput = document.querySelector(".login-username-input")
     const passwordInput = document.querySelector(".login-password-input")
     const userData = {
         username: usernameInput.value,
         password: passwordInput.value
     };
-    //  debugger
+
     // Check if login form filled out 
     if (loginFormFilledOut(userData)) {
         fetchUser(userData)
@@ -239,6 +232,7 @@ const fetchNewUser = (newUserData) => {
         },
         body: JSON.stringify(newUserData)
     };
+
     // Send fetch request to users url
     fetch(USERS_URL, userConfigObj)
         .then(response => checkForErrors(response))
@@ -262,6 +256,7 @@ const fetchUser = (userData) => {
         },
         body: JSON.stringify(userData)
     };
+
     // Send fetch request to login url
     fetch(SESSIONS_URL, userConfigObj)
         .then(response => {
@@ -341,8 +336,3 @@ const checkForErrors = (response) => {
         throw Error(response.statusText);
     }
 }
-
-// Make function for rendering the signup form
-// const signupForm = () => {
-//     return document.querySelector('#signup-form')
-// }
