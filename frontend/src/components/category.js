@@ -1,4 +1,3 @@
-// Category class ()
 class Category {
     constructor(
         category, categoryAttributes, categoryRelationships,
@@ -31,14 +30,10 @@ class Category {
 
     // Method to render category to the dom
     renderCategory() {
+       Category.all.sort((a, b) => b.name - a.name)
         return `
            <option value="${this.name}" data-id="${this.id}">${this.name}</option>
           `
-            //   let categoryOption = document.createElement("option")
-            //   categoryOption.value = `${this.value}`
-            //   categoryOption.dataset.id = `${this.id}`
-            //   categoryOption.innerHTML = `${this.name}`
-            //   return categoryOption
     }
 
     // Get quizzes for current category
