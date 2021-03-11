@@ -1,8 +1,8 @@
 const BASE_URL = "http://localhost:3000" // Set global variable for home url
-const USERS_URL = `${BASE_URL}/api/v1/users` // Set url global variable for users
-const SESSIONS_URL = `${BASE_URL}/sessions` // Set url global variable for login
-const CATEGORIES_URL = `${BASE_URL}/api/v1/categories` // Set url global variable for fetching categorues
-const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
+// const USERS_URL = `${BASE_URL}/api/v1/users` // Set url global variable for users
+// const SESSIONS_URL = `${BASE_URL}/sessions` // Set url global variable for login
+// const CATEGORIES_URL = `${BASE_URL}/api/v1/categories` // Set url global variable for fetching categorues
+// const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
 const signupForm = document.querySelector("#signup-form")
 const loginForm = document.querySelector("#login-form")
 
@@ -38,6 +38,7 @@ const createCategorySelector = () => {
 }
 
 const fetchCategories = () => {
+    const CATEGORIES_URL = `${BASE_URL}/api/v1/categories`
     // Fetch and load all categories
     fetch(CATEGORIES_URL, {
             method: "GET",
@@ -90,6 +91,7 @@ const handleCategoryClick = (event) => {
 }
 
 const fetchQuiz = () => {
+    const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
     fetch(QUIZZES_URL, {
             method: "GET",
             headers: {
@@ -156,6 +158,7 @@ const handleLogout = () => {
 }
 
 const logout = () => {
+    const SESSIONS_URL = `${BASE_URL}/sessions`
     // Logout the current user
     fetch(SESSIONS_URL, {
         method: "DELETE",
@@ -224,6 +227,7 @@ const loginFormFilledOut = (userData) => {
 
 const fetchNewUser = (newUserData) => {
     // Make config object
+    const USERS_URL = `${BASE_URL}/api/v1/users`
     const userConfigObj = {
         method: "POST",
         headers: {
@@ -248,6 +252,7 @@ const fetchNewUser = (newUserData) => {
 }
 
 const fetchUser = (userData) => {
+    const SESSIONS_URL = `${BASE_URL}/sessions`
     const userConfigObj = {
         method: "POST",
         headers: {
