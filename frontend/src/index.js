@@ -1,8 +1,4 @@
 const BASE_URL = "http://localhost:3000" // Set global variable for home url
-// const USERS_URL = `${BASE_URL}/api/v1/users` // Set url global variable for users
-// const SESSIONS_URL = `${BASE_URL}/sessions` // Set url global variable for login
-// const CATEGORIES_URL = `${BASE_URL}/api/v1/categories` // Set url global variable for fetching categorues
-// const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
 const signupForm = document.querySelector("#signup-form")
 const loginForm = document.querySelector("#login-form")
 
@@ -21,6 +17,65 @@ const renderSignupForm = () => {
 const renderLoginForm = () => {
     signupForm.hidden = true
     loginForm.hidden = false
+}
+
+// Sign up functionality
+const signupUser = (event) => {
+    event.preventDefault()
+   
+    const emailInput = event.target.children[2]
+    const usernameInput = event.target.children[5]
+    const passwordInput = event.target.children[8]
+    const passwordConfirmationInput = event.target.children[11]
+
+    const newUserData = {
+        user: {
+            email: emailInput.value,
+            username: usernameInput.value,
+            password: passwordInput.value,
+            password_confirmation: passwordConfirmationInput.value
+        }
+    };
+    if (signupFormFilledOut(newUserData)) {
+        fetchNewUser(newUserData)
+    } else {
+        alert("Signup form must be filled out on submit")
+    }
+}
+
+const signupFormFilledOut = (newUserData) => {
+    return (
+        newUserData.user.email.length > 0 &&
+        newUserData.user.username.length > 0 &&
+        newUserData.user.password.length > 0 &&
+        newUserData.user.password_confirmation.length > 0
+    )
+}
+
+const fetchNewUser = (newUserData) => {
+    // Make config object
+    const USERS_URL = `${BASE_URL}/api/v1/users`
+    const userConfigObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(newUserData)
+    };
+
+    // Send fetch request to users url
+    fetch(USERS_URL, userConfigObj)
+        .then(response => checkForErrors(response))
+        .then(userObj => {
+            createUser(userObj)
+            hideLinksAndForms()
+            showCategories(true)
+        })
+        .catch(error => {
+            error.message = "Signup was unsuccessful"
+            alert(error.message)
+        })
 }
 
 const renderCategorySelector = () => {
@@ -170,29 +225,6 @@ const logout = () => {
     showLoggedOutLinks()
 }
 
-const signupUser = (event) => {
-    event.preventDefault()
-   
-    const emailInput = event.target.children[2]
-    const usernameInput = event.target.children[5]
-    const passwordInput = event.target.children[8]
-    const passwordConfirmationInput = event.target.children[11]
-
-    const newUserData = {
-        user: {
-            email: emailInput.value,
-            username: usernameInput.value,
-            password: passwordInput.value,
-            password_confirmation: passwordConfirmationInput.value
-        }
-    };
-    if (signupFormFilledOut(newUserData)) {
-        fetchNewUser(newUserData)
-    } else {
-        alert("Signup form must be filled out on submit")
-    }
-}
-
 const loginUser = (event) => {
     event.preventDefault()
 
@@ -211,44 +243,9 @@ const loginUser = (event) => {
     }
 }
 
-const signupFormFilledOut = (newUserData) => {
-    return (
-        newUserData.user.email.length > 0 &&
-        newUserData.user.username.length > 0 &&
-        newUserData.user.password.length > 0 &&
-        newUserData.user.password_confirmation.length > 0
-    )
-}
-
 const loginFormFilledOut = (userData) => {
     return (userData.username.length > 0 &&
         userData.password.length > 0)
-}
-
-const fetchNewUser = (newUserData) => {
-    // Make config object
-    const USERS_URL = `${BASE_URL}/api/v1/users`
-    const userConfigObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(newUserData)
-    };
-
-    // Send fetch request to users url
-    fetch(USERS_URL, userConfigObj)
-        .then(response => checkForErrors(response))
-        .then(userObj => {
-            createUser(userObj)
-            hideLinksAndForms()
-            showCategories(true)
-        })
-        .catch(error => {
-            error.message = "Signup was unsuccessful"
-            alert(error.message)
-        })
 }
 
 const fetchUser = (userData) => {
