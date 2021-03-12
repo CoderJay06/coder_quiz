@@ -133,6 +133,7 @@ const fetchUser = (userData) => {
         })
 }
 
+// All functionality for selecting categories
 const renderCategorySelector = () => {
     createCategorySelector()
     fetchCategories()
@@ -149,6 +150,7 @@ const createCategorySelector = () => {
 
 const fetchCategories = () => {
     const CATEGORIES_URL = `${BASE_URL}/api/v1/categories`
+
     // Fetch and load all categories
     fetch(CATEGORIES_URL, {
             method: "GET",
@@ -165,6 +167,8 @@ const fetchCategories = () => {
 
 const handleCategoryData = (categoriesData) => {
     const categorySelector = document.getElementById("categories")
+
+    // When categories not yet rendered, dynamically store and render categories
     if (categorySelector.childElementCount < categoriesData.data.length) {
         categoriesData.data.forEach(category => {
             let option = createCategory(category, categoriesData)
@@ -193,12 +197,15 @@ const handleCategoryClick = (event) => {
     const category = Category.all.find(categoryObj => categoryObj.id === categoryId)
     const quizContainer = document.getElementById("quizzes-container")
    
+    // When category found show its quizzes
     if (category) {
         quizContainer.innerHTML = category.getQuizzes()
         showQuizzes(true)
         fetchQuiz()
     }
 }
+
+
 
 const fetchQuiz = () => {
     const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
