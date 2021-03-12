@@ -19,7 +19,7 @@ const renderLoginForm = () => {
     loginForm.hidden = false
 }
 
-// Sign up functionality
+// All sign up functionality 
 const signupUser = (event) => {
     event.preventDefault()
    
@@ -74,6 +74,61 @@ const fetchNewUser = (newUserData) => {
         })
         .catch(error => {
             error.message = "Signup was unsuccessful"
+            alert(error.message)
+        })
+}
+
+const createUser = (userObj) => {
+    new User({
+        id: Number(userObj.data.id),
+        email: userObj.data.attributes.email,
+        username: userObj.data.attributes.username
+    })
+}
+
+// All login functionality 
+const loginUser = (event) => {
+    event.preventDefault()
+
+    const usernameInput = document.querySelector(".login-username-input")
+    const passwordInput = document.querySelector(".login-password-input")
+    const userData = {
+        username: usernameInput.value,
+        password: passwordInput.value
+    };
+
+    if (loginFormFilledOut(userData)) {
+        fetchUser(userData)
+    } else {
+        alert("Login must be filled out on submit")
+    }
+}
+
+const loginFormFilledOut = (userData) => {
+    return (userData.username.length > 0 &&
+        userData.password.length > 0)
+}
+
+const fetchUser = (userData) => {
+    const SESSIONS_URL = `${BASE_URL}/sessions`
+    const userConfigObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(userData)
+    };
+
+    // Send fetch request to login url
+    fetch(SESSIONS_URL, userConfigObj)
+        .then(response => {
+            checkForErrors(response)
+            hideLinksAndForms()
+            showCategories(true)
+        })
+        .catch(error => {
+            error.message = "Error logging in"
             alert(error.message)
         })
 }
@@ -223,61 +278,6 @@ const logout = () => {
         }
     })
     showLoggedOutLinks()
-}
-
-const loginUser = (event) => {
-    event.preventDefault()
-
-    const usernameInput = document.querySelector(".login-username-input")
-    const passwordInput = document.querySelector(".login-password-input")
-    const userData = {
-        username: usernameInput.value,
-        password: passwordInput.value
-    };
-
-    // Check if login form filled out 
-    if (loginFormFilledOut(userData)) {
-        fetchUser(userData)
-    } else {
-        alert("Login must be filled out on submit")
-    }
-}
-
-const loginFormFilledOut = (userData) => {
-    return (userData.username.length > 0 &&
-        userData.password.length > 0)
-}
-
-const fetchUser = (userData) => {
-    const SESSIONS_URL = `${BASE_URL}/sessions`
-    const userConfigObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(userData)
-    };
-
-    // Send fetch request to login url
-    fetch(SESSIONS_URL, userConfigObj)
-        .then(response => {
-            checkForErrors(response)
-            hideLinksAndForms()
-            showCategories(true)
-        })
-        .catch(error => {
-            error.message = "Error logging in"
-            alert(error.message)
-        })
-}
-
-const createUser = (userObj) => {
-    new User({
-        id: Number(userObj.data.id),
-        email: userObj.data.attributes.email,
-        username: userObj.data.attributes.username
-    })
 }
 
 const hideLinksAndForms = () => {
