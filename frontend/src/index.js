@@ -133,6 +133,24 @@ const fetchUser = (userData) => {
         })
 }
 
+// All logout functionality
+const handleLogout = () => {
+    logout()
+}
+
+const logout = () => {
+    const SESSIONS_URL = `${BASE_URL}/sessions`
+    // Logout the current user
+    fetch(SESSIONS_URL, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    })
+    showLoggedOutLinks()
+}
+
 // All functionality for selecting categories
 const renderCategorySelector = () => {
     createCategorySelector()
@@ -205,8 +223,7 @@ const handleCategoryClick = (event) => {
     }
 }
 
-
-
+// All functionality for selecting quizzes
 const fetchQuiz = () => {
     const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
     fetch(QUIZZES_URL, {
@@ -270,23 +287,7 @@ confirmQuizSubmit = () => {
       showQuiz(false) : showQuiz(true)
 }
 
-const handleLogout = () => {
-    logout()
-}
-
-const logout = () => {
-    const SESSIONS_URL = `${BASE_URL}/sessions`
-    // Logout the current user
-    fetch(SESSIONS_URL, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        }
-    })
-    showLoggedOutLinks()
-}
-
+// Functions for showing and hiding DOM content
 const hideLinksAndForms = () => {
     const signupLoginLinks = document.querySelector(".signup-login-links")
     const logoutLink = document.querySelector(".logout-link")
@@ -338,6 +339,7 @@ const showQuiz = (show) => {
     }
 }
 
+// Error handling functions
 const checkForErrors = (response) => {
     if (response.status >= 200 && response.status <= 299) {
         return response.json()
