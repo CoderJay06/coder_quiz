@@ -108,6 +108,18 @@ Model Relationships
 # TODOS
    - Add fast JSON API gem and searializers
    - Switch to token based authentication
+   - Connect app to a quizzes api
+      . use fetch to get quiz data
+      . what are data looks like:
+      <!-- 0:
+         category: "Science: Computers"
+         correct_answer: "Apple"
+         difficulty: "easy"
+         incorrect_answers: (3) ["Microsoft", "Atari", "Commodore"]
+         question: "Which company was established on April 1st, 1976 by Steve Jobs, Steve Wozniak and Ronald Wayne?"
+         type: "multiple"
+         __proto__: Object -->
+      . refactor quiz class and backend model to align with api data
 
 # REFACTORING
 
