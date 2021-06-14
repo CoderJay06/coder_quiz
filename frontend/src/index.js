@@ -86,14 +86,15 @@ const handleCategoryClick = (event) => {
     }
 }
 
-const fetchQuizApi = () => {
-    const url = "https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple"
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.results)
-        })
-}
+// const fetchQuizApi = () => {
+//     const url = "https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple"
+//     fetch(url)
+//         .then(response => response.json())
+//         .then(data => {
+//             console.log(data.results)
+//             storeQuizzes(data.results)
+//         })
+// }
 
 const fetchQuiz = () => {
     const QUIZZES_URL = `${BASE_URL}/api/v1/quizzes`
