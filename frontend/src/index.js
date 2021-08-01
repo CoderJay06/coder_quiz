@@ -323,6 +323,7 @@ const showCategories = (show) => {
 }
 
 const showQuizzes = (show) => {
+    
     const quizzesContainer = document.getElementById("quizzes-container")
     if (show) {
         quizzesContainer.className = "show"
