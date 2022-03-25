@@ -1,31 +1,19 @@
 const BASE_URL = "http://localhost:3000" // Set global variable for home url
-const signupForm = document.querySelector("#signup-form")
-const loginForm = document.querySelector("#login-form")
-const signupLink = document.getElementById("signup-link")
-const loginLink = document.getElementById("login-link")
-const logoutLink = document.getElementById("logout-link")
 
 document.addEventListener("DOMContentLoaded", () => {
-    signupLink.addEventListener("click", renderSignupForm)
-    loginLink.addEventListener("click", renderLoginForm)
-    logoutLink.addEventListener("click", handleLogout)
+    const form = new Form();
+    const signupLink = form.getById("signup-link")
+    const loginLink = form.getById("login-link")
+    const signupForm = form.getById("signup-form")
+    const loginForm = form.getById("login-form")
+
+    signupLink.addEventListener("click", (e) => form.render(e, "signup"))
+    loginLink.addEventListener("click", (e) => form.render(e, "login"))
     signupForm.addEventListener("submit", signupUser)
     loginForm.addEventListener("submit", loginUser)
+  
     renderCategorySelector()
 });
-
-
-const renderSignupForm = (e) => {
-    e.preventDefault()
-    loginForm.hidden = true
-    signupForm.hidden = false
-}
-
-const renderLoginForm = (e) => {
-    e.preventDefault()
-    signupForm.hidden = true
-    loginForm.hidden = false
-}
 
 const renderCategorySelector = () => {
     createCategorySelector()
