@@ -4,20 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="frontend/styles/style.css">
     <title>Coder Quiz</title>
 </head>
 
 <body>
-    <img class="logo" src="styles/b2a875ea-f9aa-41bf-bfb5-21a0321084d7_200x200.png" alt="Coder Quiz logo">
+    <img class="logo" src="frontend/styles/b2a875ea-f9aa-41bf-bfb5-21a0321084d7_200x200.png" alt="Coder Quiz logo">
     <br>
     <div>
-        <a class="logout-link" href="#" onclick="handleLogout()" hidden>Logout</a>
+<!--         <a class="logout-link" href="#" onclick="handleLogout()" hidden>Logout</a> -->
+      <a id="logout-link" href="/" hidden>Logout</a>
     </div>
     <div>
         <p class="signup-login-links">
-            <a class="signup-link" href="#" onclick="renderSignupForm()">Signup</a> Or
-            <a class="login-link" href="#" onclick="renderLoginForm()">Login</a>
+          <a id="signup-link" href="/signup">Signup</a> Or
+          <a id="login-link" href="/login">Login</a>
         </p>
     </div>
     <div id="signup-form-container">
@@ -60,10 +61,10 @@
       
     </div>
 
-    <script src="src/index.js"></script>
-    <script src="src/components/user.js"></script>
-    <script src="src/components/category.js"></script>
-    <script src="src/components/quiz.js"></script>
+    <script src="frontend/src/index.js"></script>
+    <script src="frontend/src/components/user.js"></script>
+    <script src="frontend/src/components/category.js"></script>
+    <script src="frontend/src/components/quiz.js"></script>
 </body>
 
 </html>

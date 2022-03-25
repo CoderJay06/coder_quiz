@@ -1,20 +1,28 @@
 const BASE_URL = "http://localhost:3000" // Set global variable for home url
 const signupForm = document.querySelector("#signup-form")
 const loginForm = document.querySelector("#login-form")
+const signupLink = document.getElementById("signup-link")
+const loginLink = document.getElementById("login-link")
+const logoutLink = document.getElementById("logout-link")
 
 document.addEventListener("DOMContentLoaded", () => {
+    signupLink.addEventListener("click", renderSignupForm)
+    loginLink.addEventListener("click", renderLoginForm)
+    logoutLink.addEventListener("click", handleLogout)
     signupForm.addEventListener("submit", signupUser)
     loginForm.addEventListener("submit", loginUser)
     renderCategorySelector()
 });
 
 
-const renderSignupForm = () => {
+const renderSignupForm = (e) => {
+    e.preventDefault()
     loginForm.hidden = true
     signupForm.hidden = false
 }
 
-const renderLoginForm = () => {
+const renderLoginForm = (e) => {
+    e.preventDefault()
     signupForm.hidden = true
     loginForm.hidden = false
 }
@@ -159,7 +167,8 @@ confirmQuizSubmit = () => {
       showQuiz(false) : showQuiz(true)
 }
 
-const handleLogout = () => {
+const handleLogout = (e) => {
+    e.preventDefault()
     logout()
 }
 
